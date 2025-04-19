@@ -17,7 +17,7 @@ def poll(request):
     if request.method != "POST":
         return redirect(index)
 
-    participant_name = request.POST.get('participantName')
+    participant_name = request.POST.get('participantName', 'naughty user') # if user tries to get around the client side validation just display this funny username on leaderboard
     leaderboard_choice = request.POST.get('leaderboardChoice', 'no')  # Default to 'no' if not selected
 
     context = {
