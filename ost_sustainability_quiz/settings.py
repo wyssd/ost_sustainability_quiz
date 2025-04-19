@@ -54,7 +54,7 @@ ROOT_URLCONF = 'ost_sustainability_quiz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'quiz/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
