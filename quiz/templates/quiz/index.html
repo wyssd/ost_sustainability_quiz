@@ -52,7 +52,8 @@
                         </p>
                     </div>
 
-                    <form action="poll.html" method="GET">
+                    <form action="poll" method="post">
+                        {% csrf_token %}
                         <div class="mb-4">
                             <label for="participantName" class="form-label text-success fw-bold">
                                 Your Name:
@@ -60,7 +61,7 @@
                             <input type="text"
                                    class="form-control form-control-lg"
                                    id="participantName"
-                                   name="name"
+                                   name="participantName"
                                    required
                                    placeholder="Max M.">
                             <div class="form-text text-muted">This helps us personalize your experience</div>
@@ -73,7 +74,7 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input"
                                        type="radio"
-                                       name="leaderboard"
+                                       name="leaderboardChoice"
                                        id="leaderboardYes"
                                        value="yes"
                                        required checked>
@@ -82,7 +83,7 @@
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input"
                                        type="radio"
-                                       name="leaderboard"
+                                       name="leaderboardChoice"
                                        id="leaderboardNo"
                                        value="no">
                                 <label class="form-check-label" for="leaderboardNo">No</label>
