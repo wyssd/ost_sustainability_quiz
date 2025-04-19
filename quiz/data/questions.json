@@ -1,120 +1,155 @@
+[
 {
-    "questions": [
-      {
-        "text": "Wie kommst du normalerweise zur Hochschule?",
-        "options": [
-          { "text": "Zu Fuß oder mit dem Fahrrad", "score": 10, "category": "transport", "social": false },
-          { "text": "Mit öffentlichen Verkehrsmitteln", "score": 7, "category": "transport", "social": false },
-          { "text": "Mit dem Auto (allein)", "score": 0, "category": "transport", "social": false },
-          { "text": "Mit dem Auto (Fahrgemeinschaft)", "score": 7, "category": "transport", "social": true }
-        ]
-      },
-      {
-        "text": "Wie nutzt du Lernmaterialien in deinem Studium?",
-        "options": [
-          { "text": "Ich nutze fast ausschließlich digitale Materialien (Laptop/Tablet, PDFs, E-Books)", "score": 10, "category": "materials", "social": false },
-          { "text": "Ich verwende eine Mischung aus digitalen und gedruckten Materialien", "score": 7, "category": "materials", "social": false },
-          { "text": "Ich drucke viele Unterlagen aus und arbeite hauptsächlich mit Papier", "score": 0, "category": "materials", "social": false },
-          { "text": "Ich nutze hauptsächlich Bücher aus der Bibliothek", "score": 7, "category": "materials", "social": false }
-        ]
-      },
-      {
-        "text": "Wie ernährst du dich während des Studiums?",
-        "options": [
-          { "text": "Ich bringe mein eigenes Essen mit, möglichst nachhaltig", "score": 10, "category": "food", "social": false },
-          { "text": "Ich esse in der Mensa und achte auf regionale/vegetarische Optionen", "score": 7, "category": "food", "social": false },
-          { "text": "Ich kaufe oft verpackte Snacks oder Fast Food", "score": 0, "category": "food", "social": false },
-          { "text": "Ich esse, was verfügbar ist, ohne auf Nachhaltigkeit zu achten", "score": 3, "category": "food", "social": false }
-        ]
-      },
-      {
-        "text": "Welche Getränke nutzt du im Studium?",
-        "options": [
-          { "text": "Ich habe eine wiederverwendbare Flasche und vermeide Einwegplastik", "score": 10, "category": "beverages", "social": false },
-          { "text": "Ich kaufe Getränke in Mehrwegflaschen oder -bechern", "score": 7, "category": "beverages", "social": false },
-          { "text": "Ich kaufe regelmäßig Getränke in PET-Flaschen oder Einwegverpackungen", "score": 0, "category": "beverages", "social": false },
-          { "text": "Ich nutze Coffee-to-go, aber meist mit eigenem Becher", "score": 7, "category": "beverages", "social": false }
-        ]
-      },
-      {
-        "text": "Wie gehst du mit der Nutzung von technischen Geräten im Studium um?",
-        "options": [
-          { "text": "Ich nutze mein Gerät so lange wie möglich und repariere es bei Defekten", "score": 10, "category": "devices", "social": false },
-          { "text": "Ich kaufe gebrauchte oder generalüberholte Geräte", "score": 7, "category": "devices", "social": false },
-          { "text": "Ich kaufe regelmäßig neue Geräte, wenn eine neue Version erscheint", "score": 0, "category": "devices", "social": false },
-          { "text": "Ich nutze hauptsächlich Hochschulgeräte (Bibliothek, Computerräume)", "score": 7, "category": "devices", "social": false }
-        ]
-      },
-      {
-        "text": "Wie nutzt du Hochschulressourcen nachhaltig?",
-        "options": [
-          { "text": "Ich nutze Bücher aus der Bibliothek anstatt sie zu kaufen", "score": 10, "category": "resources", "social": false },
-          { "text": "Ich leihe oder teile Lernmaterialien mit Kommilitonen", "score": 7, "category": "resources", "social": true },
-          { "text": "Ich drucke oft Skripte und Lernmaterialien aus", "score": 0, "category": "resources", "social": false },
-          { "text": "Ich lerne hauptsächlich zu Hause mit eigenen Materialien", "score": 3, "category": "resources", "social": false }
-        ]
-      },
-      {
-        "text": "Wie gestaltest du deine Wohnsituation während des Studiums?",
-        "options": [
-          { "text": "Ich wohne in einer Wohngemeinschaft (WG)", "score": 10, "category": "housing", "social": true },
-          { "text": "Ich wohne allein, aber in einer energieeffizienten Wohnung", "score": 7, "category": "housing", "social": false },
-          { "text": "Ich wohne allein ohne besonderen Fokus auf Energieeffizienz", "score": 3, "category": "housing", "social": false },
-          { "text": "Ich pendele täglich mit dem Auto zur Hochschule", "score": 0, "category": "housing", "social": false }
-        ]
-      },
-      {
-        "text": "Wie gehst du mit Kleidung im Studienalltag um?",
-        "options": [
-          { "text": "Ich kaufe selten neue Kleidung und achte auf Nachhaltigkeit (z.B. Secondhand)", "score": 10, "category": "clothing", "social": false },
-          { "text": "Ich kaufe gelegentlich neue Kleidung, meist fair produziert", "score": 7, "category": "clothing", "social": false },
-          { "text": "Ich kaufe regelmäßig Fast Fashion", "score": 0, "category": "clothing", "social": false },
-          { "text": "Ich tausche Kleidung mit Freunden oder auf Kleidertauschpartys", "score": 7, "category": "clothing", "social": true }
-        ]
-      }
-    ],
-    
-    "tips": {
-      "transport": [
-        "Fahrgemeinschaften gründen oder beitreten.",
-        "Bei gutem Wetter auf Fahrrad oder Fußweg umsteigen.",
-        "Nutze dein Semesterticket für Bus und Bahn häufiger."
-      ],
-      "materials": [
-        "Verwende PDF-Reader mit Notizfunktion statt auszudrucken.",
-        "Scanne handschriftliche Notizen und speichere sie digital.",
-        "Tausche Materialien online mit anderen Studierenden aus."
-      ],
-      "food": [
-        "Bereite Mahlzeiten zu Hause vor – günstig und nachhaltig.",
-        "Wähle vegetarische oder vegane Optionen in der Mensa.",
-        "Vermeide Verpackungsmüll durch eigene Brotboxen."
-      ],
-      "beverages": [
-        "Nutze einen Thermobecher für Kaffee oder Tee unterwegs.",
-        "Trinke Leitungswasser – das spart Geld und Verpackung.",
-        "Meide PET-Einwegflaschen, wo immer möglich."
-      ],
-      "devices": [
-        "Geräte regelmäßig warten statt neu kaufen.",
-        "Frage bei Defekten in der Hochschule nach Repair-Angeboten.",
-        "Kaufe generalüberholte Technik statt Neuware."
-      ],
-      "resources": [
-        "Teile Materialien über Cloud-Dienste mit Kommilitonen.",
-        "Drucke beidseitig und nur das Nötigste.",
-        "Leihe statt kaufe – Bibliotheken bieten oft mehr als gedacht."
-      ],
-      "housing": [
-        "",
-        "",
-        ""
-      ],
-      "clothing": [
-        "",
-        "",
-        ""
-      ]
-    }
-  }
-  
+ "model": "quiz.question",
+ "pk": 1,
+ "fields": {
+  "text": "Wie kommst du normalerweise zur Hochschule?"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 2,
+ "fields": {
+  "text": "Wie nutzt du Lernmaterialien in deinem Studium?"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 3,
+ "fields": {
+  "text": "Wie ernährst du dich während des Studiums?"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 1,
+ "fields": {
+  "question": 1,
+  "text": "Zu Fuß oder mit dem Fahrrad",
+  "score": 10,
+  "category": "transport",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 2,
+ "fields": {
+  "question": 1,
+  "text": "Mit öffentlichen Verkehrsmitteln",
+  "score": 7,
+  "category": "transport",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 3,
+ "fields": {
+  "question": 1,
+  "text": "Mit dem Auto (allein)",
+  "score": 0,
+  "category": "transport",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 4,
+ "fields": {
+  "question": 1,
+  "text": "Mit dem Auto (Fahrgemeinschaft)",
+  "score": 7,
+  "category": "transport",
+  "socialBonus": true
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 5,
+ "fields": {
+  "question": 2,
+  "text": "Ich nutze fast ausschließlich digitale Materialien (Laptop/Tablet, PDFs, E-Books)",
+  "score": 10,
+  "category": "materials",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 6,
+ "fields": {
+  "question": 2,
+  "text": "Ich nutze fast ausschließlich digitale Materialien (Laptop/Tablet, PDFs, E-Books)",
+  "score": 7,
+  "category": "materials",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 7,
+ "fields": {
+  "question": 2,
+  "text": "Ich drucke viele Unterlagen aus und arbeite hauptsächlich mit Papier",
+  "score": 0,
+  "category": "materials",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 8,
+ "fields": {
+  "question": 2,
+  "text": "Ich nutze hauptsächlich Bücher aus der Bibliothek",
+  "score": 7,
+  "category": "materials",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 9,
+ "fields": {
+  "question": 3,
+  "text": "Ich bringe mein eigenes Essen mit, möglichst nachhaltig",
+  "score": 10,
+  "category": "food",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 10,
+ "fields": {
+  "question": 3,
+  "text": "Ich esse in der Mensa und achte auf regionale/vegetarische Optionen",
+  "score": 7,
+  "category": "food",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 11,
+ "fields": {
+  "question": 3,
+  "text": "Ich kaufe oft verpackte Snacks oder Fast Food",
+  "score": 0,
+  "category": "food",
+  "socialBonus": false
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 12,
+ "fields": {
+  "question": 3,
+  "text": "Ich esse, was verfügbar ist, ohne auf Nachhaltigkeit zu achten",
+  "score": 3,
+  "category": "food",
+  "socialBonus": false
+ }
+}
+]
