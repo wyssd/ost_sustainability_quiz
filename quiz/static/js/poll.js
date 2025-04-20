@@ -1,85 +1,102 @@
-// static/js/poll.js
-
-// Globale Container für Fragen + Tipps
 let questions = [];
 let improvementTips = {};
+let currentQuestionIndex = 0;
+const answers = [];
 
 document.addEventListener('DOMContentLoaded', initPoll);
 
 async function initPoll() {
-  // 1) Fragen vom Server / static/questions.json oder API‑Endpunkt holen
   const res = await fetch('/api/questions/');
   const data = await res.json();
-  questions       = data.questions || [];
-  improvementTips = data.tips      || {};
+  questions = data.questions || [];
+  improvementTips = data.tips || {};
 
   if (!questions.length) {
-    document.getElementById('questions-container').textContent = "Keine Fragen verfügbar.";
+    document.getElementById('question-block').textContent = "Keine Fragen verfügbar.";
     return;
   }
 
-  // 2) Fragen in das Formular injizieren
-  const container = document.getElementById('questions-container');
-  questions.forEach((q, i) => {
-    const block = document.createElement('div');
-    block.className = 'mb-4';
+  showQuestion(0);
+  document.getElementById('poll-form').addEventListener('submit', onSubmit);
+}
 
-    // Frage-Text
-    const h5 = document.createElement('h5');
-    h5.textContent = `${i + 1}. ${q.text}`;
-    block.appendChild(h5);
+function showQuestion(index) {
+  const container = document.getElementById('question-block');
+  const q = questions[index];
+  container.innerHTML = '';
 
-    // Options als Radio‑Buttons
-    q.options.forEach((opt, idx) => {
-      const id = `q${i}_opt${idx}`;
+  const block = document.createElement('div');
+  block.className = 'mb-4 mx-auto';
+  block.style.maxWidth = '600px';
 
-      const formCheck = document.createElement('div');
-      formCheck.className = 'form-check';
+  const h5 = document.createElement('h5');
+  h5.className = 'mb-3 text-center';
+  h5.textContent = `${index + 1}. ${q.text}`;
+  block.appendChild(h5);
 
-      formCheck.innerHTML = `
-        <input class="form-check-input" type="radio"
-               name="question-${i}" id="${id}" value="${idx}" required>
-        <label class="form-check-label" for="${id}">${opt.text}</label>
-      `;
+  const buttonGroup = document.createElement('div');
+  buttonGroup.className = 'd-grid gap-2';
 
-      block.appendChild(formCheck);
+  q.options.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-outline-success';
+    btn.textContent = opt.text;
+    btn.dataset.optionIndex = idx;
+
+    btn.addEventListener('click', () => {
+      // Auswahl speichern
+      answers[index] = idx;
+
+      // Alle Buttons dieser Frage deaktivieren
+      const allButtons = container.querySelectorAll('button[data-option-index]');
+      allButtons.forEach(b => b.classList.remove('active'));
+
+      // Diesen aktivieren
+      btn.classList.add('active');
     });
 
-    container.appendChild(block);
+    buttonGroup.appendChild(btn);
   });
 
-  // 3) submit‑Handler registrieren
-  document.getElementById('poll-form')
-          .addEventListener('submit', onSubmit);
+  block.appendChild(buttonGroup);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.type = 'button';
+  nextBtn.className = 'btn btn-outline-primary mt-4';
+  nextBtn.textContent = index < questions.length - 1 ? 'Weiter ➡️' : 'Fertigstellen ✅';
+
+  nextBtn.addEventListener('click', () => {
+    if (answers[index] == null) {
+      alert("Bitte wähle eine Option aus.");
+      return;
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+      updateProgress();
+      showQuestion(currentQuestionIndex);
+    } else {
+      updateProgress();
+      document.getElementById('question-block').innerHTML =
+        '<p class="text-success fw-bold text-center">Alle Fragen beantwortet ✅</p>';
+      document.getElementById('submit-button').classList.remove('d-none');
+    }
+  });
+
+  block.appendChild(nextBtn);
+  container.appendChild(block);
+  updateProgress();
+}
+
+function updateProgress() {
+  const progress = document.getElementById('progress-bar');
+  progress.value = ((currentQuestionIndex) / questions.length) * 100;
 }
 
 async function onSubmit(evt) {
   evt.preventDefault();
-
-  // Antworten auslesen
-  const answers = questions.map((_, i) => {
-    const sel = document.querySelector(`input[name="question-${i}"]:checked`);
-    return sel ? Number(sel.value) : null;
-  });
-
-  // Validierung: alle Fragen beantwortet?
-  if (answers.some(a => a === null)) {
-    return alert("Bitte beantworte alle Fragen, bevor Du abschickst.");
-  }
-
-  // 4) Antworten zwischenspeichern (optional im localStorage)
   localStorage.setItem('pollAnswers', JSON.stringify(answers));
-
-  // 5) Jetzt kannst Du entweder:
-  //    a) die Daten per fetch POSTen ...
-  /*
-  await fetch('/api/save-poll/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ answers, timestamp: new Date().toISOString() })
-  });
-  */
-
-  //    b) oder zum Quiz / zur Result‑Seite weiterleiten:
-  window.location.href = 'results';
+  window.location.href = '/results/';
 }
