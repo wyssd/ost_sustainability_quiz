@@ -1,0 +1,146 @@
+[
+{
+  "model": "quiz.tip",
+  "pk": 1,
+  "fields": {
+    "category": "transport",
+    "text": "Nutze das Fahrrad oder gehe zu Fuß – das ist nicht nur umweltfreundlich, sondern auch gesund! 🚶‍♂️🚴‍♀️"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 2,
+  "fields": {
+    "category": "transport",
+    "text": "Bilde Fahrgemeinschaften, um Emissionen zu reduzieren und Kosten zu sparen! 🚗"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 3,
+  "fields": {
+    "category": "transport",
+    "text": "Vermeide den Individualverkehr und setze auf öffentliche Verkehrsmittel. So trägst du zum Umweltschutz bei! 🚋"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 4,
+  "fields": {
+    "category": "materials",
+    "text": "Verwende PDF-Reader mit Notizfunktion statt auszudrucken. So sparst du Papier und tust der Umwelt etwas Gutes! 📚💻"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 5,
+  "fields": {
+    "category": "materials",
+    "text": "Scanne handschriftliche Notizen und speichere sie digital. Das hilft dir, Papier zu sparen und auf lange Sicht Ordnung zu halten. 📱"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 6,
+  "fields": {
+    "category": "materials",
+    "text": "Tausche Materialien online mit anderen Studierenden aus, um Abfall zu reduzieren und Kosten zu sparen! 💻"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 7,
+  "fields": {
+    "category": "food",
+    "text": "Bereite Mahlzeiten zu Hause vor – das ist günstiger und nachhaltiger als Fast Food. 🍴🥗"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 8,
+  "fields": {
+    "category": "food",
+    "text": "Wähle vegetarische oder vegane Optionen in der Mensa – das reduziert deinen CO₂-Fußabdruck! 🌱"
+  }
+},
+{
+  "model": "quiz.tip",
+  "pk": 9,
+  "fields": {
+    "category": "food",
+    "text": "Vermeide Verpackungsmüll durch eigene Brotboxen oder Taschen für deinen Snack! 🍞🥒"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 1,
+  "fields": {
+    "category": "transport",
+    "text": "\"Nutze das Fahrrad oder gehe zu Fuß – das ist nicht nur umweltfreundlich, sondern auch gesund! 🚶‍♂️🚴‍♀️"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 2,
+  "fields": {
+    "category": "transport",
+    "text": "Toll, dass du Fahrgemeinschaften bildest – das spart CO₂ und fördert den Austausch zwischen Studierenden! 🚗"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 3,
+  "fields": {
+    "category": "transport",
+    "text": "Fahrradfahren und öffentliche Verkehrsmittel nutzen – das ist wirklich vorbildlich in Sachen Nachhaltigkeit! 🚋"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 4,
+  "fields": {
+    "category": "materials",
+    "text": "Klasse, dass du fast ausschließlich digitale Materialien nutzt – das ist nicht nur nachhaltig, sondern auch super praktisch! 💻📚"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 5,
+  "fields": {
+    "category": "materials",
+    "text": "Top, dass du deine Notizen digital speicherst – das spart nicht nur Papier, sondern hilft auch bei der Organisation! 📱"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 6,
+  "fields": {
+    "category": "materials",
+    "text": "Super, dass du Materialien online tauschst – so schonst du Ressourcen und förderst den Austausch zwischen Studierenden! 💻"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 7,
+  "fields": {
+    "category": "food",
+    "text": "Top, dass du dein Essen selbst zubereitest – das ist nicht nur gesund, sondern auch nachhaltig! 🍴🥗"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 8,
+  "fields": {
+    "category": "food",
+    "text": "Super, dass du auf vegetarische oder vegane Optionen achtest – das ist ein wichtiger Schritt in Richtung Umweltschutz! 🌱"
+  }
+},
+{
+  "model": "quiz.praise",
+  "pk": 9,
+  "fields": {
+    "category": "food",
+    "text": "Toll, dass du Verpackungsmüll vermeidest – das hilft, die Umwelt zu schonen! 🍞🥒"
+  }
+}
+]
