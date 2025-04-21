@@ -6,7 +6,8 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .models import Question
+from .models import Question, Tip, Praise
+import json
 
 
 # Create your views here.
@@ -31,29 +32,67 @@ def poll(request):
     return HttpResponse(template.render(context, request))
 
 def get_questions(request):
-    data = []
-    for q in Question.objects.prefetch_related('options').all():
-        data.append({
+    questions_data = [
+        {
             'text': q.text,
             'options': [
                 {
-                    'text': o.text,
-                    'score': o.score,
-                    'category': o.category,
-                    'socialBonus': o.socialBonus
-                } for o in q.options.all()
+                    'text': opt.text,
+                    'score': opt.score,
+                    'category': opt.category,
+                    'socialBonus': opt.socialBonus
+                } for opt in q.options.all()
             ]
-        })
-    # Optional: Tips aus Settings oder ebenfalls als Model
-    tips = {
-        'transport': ['Nutze das Fahrrad oder gehe zu Fuss🚲🚶', 'Bilde Fahrgemeinschaften🚗', '🚋 Öffis bevorzugen!'],
-        'materials': ['Verwende PDF-Reader mit Notizfunktion statt auszudrucken.', 'Scanne handschriftliche Notizen und speichere sie digital.', 'Tausche Materialien online mit anderen Studierenden aus.'],
-        'food': ['Bereite Mahlzeiten zu Hause vor – günstig und nachhaltig.', 'Wähle vegetarische oder vegane Optionen in der Mensa.', 'Vermeide Verpackungsmüll durch eigene Brotboxen.'],
-        
-        # …
-    }
-    return JsonResponse({'questions': data, 'tips': tips})
+        } for q in Question.objects.prefetch_related('options')
+    ]
+    # Tipps werden sowieso nun als eigenes Modell verwaltet – optional ganz weglassen hier
+    return JsonResponse({'questions': questions_data})
 
 def results(request):
-    template = loader.get_template('quiz/results.html')
-    return HttpResponse(template.render({}, request))
+     #Antworten holen – z. B. aus session
+    answers = request.session.get('pollAnswers')
+    if not answers:
+        return redirect('index')  # oder poll
+
+    questions = list(Question.objects.prefetch_related('options').all())
+    
+    #Punkte pro Kategorie sammeln
+    scores_by_category = {}
+
+    for q, answer_index in zip(questions, answers):
+        options = list(q.options.all())
+        if answer_index is None or answer_index >= len(options):
+            continue
+        selected = options[answer_index]
+        cat = selected.category
+        scores_by_category[cat] = scores_by_category.get(cat, 0) + selected.score
+
+    if not scores_by_category:
+        return render(request, "quiz/results.html", { 'error': 'Keine gültigen Antworten erhalten.' })
+
+    #Beste & schlechteste Kategorie
+    best = max(scores_by_category.items(), key=lambda x: x[1])[0]
+    worst = min(scores_by_category.items(), key=lambda x: x[1])[0]
+
+    #Feedback laden
+    praise = Praise.objects.filter(category=best).order_by('?').first()
+    tip = Tip.objects.filter(category=worst).order_by('?').first()
+
+    context = {
+        'best_category': best,
+        'worst_category': worst,
+        'praise': praise.text if praise else f"Toll gemacht in der Kategorie {best}!",
+        'tip': tip.text if tip else f"Schau dir doch mal Tipps für {worst} an!"
+    }
+
+    return render(request, 'quiz/results.html', context)
+
+@csrf_exempt
+def save_answers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        answers = data.get('answers', [])
+        request.session['pollAnswers'] = answers  # Antworten in der Session speichern
+        return JsonResponse({'status': 'ok'})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+

@@ -16,3 +16,17 @@ class Option(models.Model):
 
     def __str__(self):
         return f"{self.question.id} – {self.text[:30]}"
+    
+class Tip(models.Model):
+    category = models.CharField(max_length=100)
+    text = models.TextField()
+
+    def __str__(self):
+        return f"Tip for {self.category}: {self.text}"
+    
+class Praise(models.Model):
+    category = models.CharField(max_length=100)
+    text = models.TextField()
+
+    def __str__(self):
+        return f"Praise for {self.category}: {self.text}"

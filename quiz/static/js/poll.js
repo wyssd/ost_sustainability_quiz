@@ -2,6 +2,7 @@ let questions = [];
 let improvementTips = {};
 let currentQuestionIndex = 0;
 const answers = [];
+const categoryScores = {}; // Dieses Objekt speichert die Punktzahlen pro Kategorie
 
 document.addEventListener('DOMContentLoaded', initPoll);
 
@@ -10,6 +11,15 @@ async function initPoll() {
   const data = await res.json();
   questions = data.questions || [];
   improvementTips = data.tips || {};
+
+  // Initialisiere Kategorie-Punkte (setzen auf 0 für jede Kategorie)
+  questions.forEach(q => {
+    q.options.forEach(opt => {
+      if (!categoryScores[opt.category]) {
+        categoryScores[opt.category] = 0; // Kategorie initialisieren
+      }
+    });
+  });
 
   if (!questions.length) {
     document.getElementById('question-block').textContent = "Keine Fragen verfügbar.";
@@ -23,7 +33,7 @@ async function initPoll() {
 function showQuestion(index) {
   const container = document.getElementById('question-block');
   const q = questions[index];
-  container.innerHTML = '';
+  container.innerHTML = ''; // Vorherige Frage entfernen
 
   const block = document.createElement('div');
   block.className = 'mb-4 mx-auto';
@@ -46,7 +56,16 @@ function showQuestion(index) {
 
     btn.addEventListener('click', () => {
       // Auswahl speichern
-      answers[index] = idx;
+      answers[index] = {
+        question_id: q.id,    // Frage-ID speichern
+        option_id: opt.id,    // Option-ID speichern
+        category: opt.category, // Kategorie speichern
+        score: opt.score,     // Punkte für die Option speichern
+        text: opt.text        // Option-Text für die Anzeige
+      };
+
+      // Punkte zur Kategorie hinzufügen
+      categoryScores[opt.category] += opt.score;
 
       // Alle Buttons dieser Frage deaktivieren
       const allButtons = container.querySelectorAll('button[data-option-index]');
@@ -67,7 +86,7 @@ function showQuestion(index) {
   nextBtn.textContent = index < questions.length - 1 ? 'Weiter ➡️' : 'Fertigstellen ✅';
 
   nextBtn.addEventListener('click', () => {
-    if (answers[index] == null) {
+    if (!answers[index]) {
       alert("Bitte wähle eine Option aus.");
       return;
     }
@@ -97,6 +116,22 @@ function updateProgress() {
 
 async function onSubmit(evt) {
   evt.preventDefault();
-  localStorage.setItem('pollAnswers', JSON.stringify(answers));
-  window.location.href = '/results/';
+  
+  // Antworten an den Server senden
+  const response = await fetch('/save-answers/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      answers: answers.map(answer => answer.option_id)  // Nur die Option-IDs senden
+    })
+  });
+
+  if (response.ok) {
+    // Weiter zur Ergebnisanzeige
+    window.location.href = '/results/';
+  } else {
+    alert('Fehler beim Speichern der Antworten. Bitte versuche es erneut.');
+  }
 }
