@@ -116,22 +116,25 @@ function updateProgress() {
 
 async function onSubmit(evt) {
   evt.preventDefault();
-  
-  // Antworten an den Server senden
-  const response = await fetch('/save-answers/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      answers: answers.map(answer => answer.option_id)  // Nur die Option-IDs senden
-    })
+
+  // Antworten im LocalStorage speichern
+  localStorage.setItem('pollAnswers', JSON.stringify(answers));
+
+  // Kategorie-Punkte im LocalStorage speichern
+  localStorage.setItem('categoryScores', JSON.stringify(categoryScores));
+
+  // Sende Antworten an den Server
+  const response = await fetch('/api/save-answers/', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ answers: answers.map(a => a.option_id) }),  // Nur die Option-IDs speichern
   });
 
   if (response.ok) {
-    // Weiter zur Ergebnisanzeige
-    window.location.href = '/results/';
+      window.location.href = '/results/';
   } else {
-    alert('Fehler beim Speichern der Antworten. Bitte versuche es erneut.');
+      console.error('Fehler beim Speichern der Antworten');
   }
 }

@@ -49,50 +49,76 @@ def get_questions(request):
     return JsonResponse({'questions': questions_data})
 
 def results(request):
-     #Antworten holen – z. B. aus session
-    answers = request.session.get('pollAnswers')
-    if not answers:
-        return redirect('index')  # oder poll
+    return render(request, 'quiz/results.html') 
 
-    questions = list(Question.objects.prefetch_related('options').all())
-    
-    #Punkte pro Kategorie sammeln
-    scores_by_category = {}
+def get_results(request):
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Nur GET erlaubt'}, status=405)
 
-    for q, answer_index in zip(questions, answers):
-        options = list(q.options.all())
-        if answer_index is None or answer_index >= len(options):
-            continue
-        selected = options[answer_index]
-        cat = selected.category
-        scores_by_category[cat] = scores_by_category.get(cat, 0) + selected.score
+    # Alle Fragen & Optionen (für eventuelles Mapping im JS)
+    questions_data = [
+        {
+            'id': q.id,
+            'text': q.text,
+            'options': [
+                {
+                    'text': opt.text,
+                    'score': opt.score,
+                    'category': opt.category,
+                    'socialBonus': opt.socialBonus
+                } for opt in q.options.all()
+            ]
+        } for q in Question.objects.prefetch_related('options')
+    ]
 
-    if not scores_by_category:
-        return render(request, "quiz/results.html", { 'error': 'Keine gültigen Antworten erhalten.' })
+    # Tipps & Lob vorab mitliefern (Frontend filtert)
+    tips_data = [
+        {'category': tip.category, 'text': tip.text}
+        for tip in Tip.objects.all()
+    ]
 
-    #Beste & schlechteste Kategorie
-    best = max(scores_by_category.items(), key=lambda x: x[1])[0]
-    worst = min(scores_by_category.items(), key=lambda x: x[1])[0]
+    praise_data = [
+        {'category': praise.category, 'text': praise.text}
+        for praise in Praise.objects.all()
+    ]
 
-    #Feedback laden
-    praise = Praise.objects.filter(category=best).order_by('?').first()
-    tip = Tip.objects.filter(category=worst).order_by('?').first()
-
-    context = {
-        'best_category': best,
-        'worst_category': worst,
-        'praise': praise.text if praise else f"Toll gemacht in der Kategorie {best}!",
-        'tip': tip.text if tip else f"Schau dir doch mal Tipps für {worst} an!"
-    }
-
-    return render(request, 'quiz/results.html', context)
+    return JsonResponse({
+        'questions': questions_data,
+        'tips': tips_data,
+        'praises': praise_data,
+    })
 
 @csrf_exempt
 def save_answers(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
-        answers = data.get('answers', [])
-        request.session['pollAnswers'] = answers  # Antworten in der Session speichern
-        return JsonResponse({'status': 'ok'})
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+        try:
+            data = json.loads(request.body)  # Versuchen, die Daten zu laden
+            # Poll-Antworten in der Session speichern
+            request.session['pollAnswers'] = data.get('answers', [])
+            return JsonResponse({'status': 'ok'})  # Erfolgreiche Antwort
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)  # Fehler bei JSON-Parsing
+    return JsonResponse({'error': 'Invalid request'}, status=400)  # Fehler, wenn keine POST-Anfrage
+
+@csrf_exempt
+def get_feedback(request):
+    if request.method != "POST":
+        return JsonResponse({'error': 'Invalid request'}, status=400)
+
+    data = json.loads(request.body)
+    best = data.get('bestCategory')
+    worst = data.get('worstCategory')
+
+    praise = Praise.objects.filter(category=best).order_by('?').first()
+    tip = Tip.objects.filter(category=worst).order_by('?').first()
+
+    praise_text = praise.text if praise else f"Toll gemacht in der Kategorie {best}!"
+    tip_text = tip.text if tip else f"Schau dir doch mal Tipps für {worst} an!"
+
+    return JsonResponse({
+        'praise': praise_text,
+        'tip': tip_text
+    })
+
+
 

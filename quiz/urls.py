@@ -7,6 +7,8 @@ urlpatterns = [
     path('poll', views.poll, name="poll"),
     path('api/questions/', views.get_questions, name='get_questions'),
     path('results/', views.results, name="results"),
-    path('save-answers/', views.save_answers, name="save_answers"),
+    path('api/results/', views.get_results, name='results_api'),
+    path('api/save-answers/', views.save_answers, name="save_answers"),
+    path('get_feedback/', views.get_feedback, name='get_feedback'),
 
 ]

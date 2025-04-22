@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auswertung</title>
+    {% load static %}
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -15,6 +16,7 @@
             align-items: center;
             background-image: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
         }
+
         .result-container {
             background-color: white;
             border-radius: 20px;
@@ -22,6 +24,7 @@
             border-top: 4px solid #2e7d32;
             padding: 30px;
         }
+
         .btn-eco {
             background-color: #388e3c;
             color: white;
@@ -29,10 +32,12 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
         }
+
         .btn-eco:hover {
             background-color: #2e7d32;
             transform: translateY(-2px);
         }
+
         .alert-custom {
             font-size: 1.1rem;
         }
@@ -52,11 +57,20 @@
                     </div>
 
                     <div class="text-center">
-                        <p class="fs-4">Du hast in der Kategorie <strong>{{ best_category }}</strong> besonders gut abgeschnitten. 👏</p>
-                        <div class="alert alert-success alert-custom">{{ praise }}</div>
+                        <p class="fs-4">Du hast in der Kategorie <strong id="best-category"></strong> besonders gut
+                            abgeschnitten. 👏</p>
+                        <div id="praise" class="alert alert-success">
+                            🌟 {{ praise }}
+                        </div>
 
-                        <p class="fs-4 mt-4">In der Kategorie <strong>{{ worst_category }}</strong> hast du noch Verbesserungspotential. 💡</p>
-                        <div class="alert alert-warning alert-custom">{{ tip }}</div>
+                        <p class="fs-4 mt-4">In der Kategorie <strong id="worst-category"></strong> hast du noch
+                            Verbesserungspotential. 💡</p>
+                        <div id="tip" class="alert alert-warning alert-custom">
+                            💬 {{ tip }}
+                        </div>
+
+                        <!-- Gesamtpunktzahl anzeigen -->
+                        <p class="fs-3 mt-4">Gesamtpunktzahl: <strong id="total-score"></strong></p>
                     </div>
 
                     <div class="text-center mt-5">
@@ -69,6 +83,10 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Hier wird das result.js eingebunden -->
+    <script src="{% static 'js/result.js' %}" type="module"></script>
+
 </body>
 
 </html>
