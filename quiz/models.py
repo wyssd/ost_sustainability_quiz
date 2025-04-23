@@ -30,3 +30,11 @@ class Praise(models.Model):
 
     def __str__(self):
         return f"Praise for {self.category}: {self.text}"
+    
+class UserScore(models.Model):
+    name = models.CharField(max_length=100)
+    total_score = models.IntegerField()
+    include_in_leaderboard = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.total_score}'

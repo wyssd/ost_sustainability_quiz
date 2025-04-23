@@ -104,5 +104,18 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            // Store the name and leaderboard choice in localStorage when form is submitted
+            const participantName = document.getElementById('participantName').value;
+            const leaderboardChoice = document.querySelector('input[name="leaderboardChoice"]:checked').value;
+            
+            localStorage.setItem('participantName', participantName);
+            localStorage.setItem('leaderboardChoice', leaderboardChoice);
+        });
+    });</script>
 </body>
 </html>

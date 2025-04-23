@@ -10,5 +10,5 @@ urlpatterns = [
     path('api/results/', views.get_results, name='results_api'),
     path('api/save-answers/', views.save_answers, name="save_answers"),
     path('get_feedback/', views.get_feedback, name='get_feedback'),
-
+    path('get-leaderboard/', views.get_leaderboard, name='get_leaderboard'),
 ]

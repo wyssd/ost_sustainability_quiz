@@ -114,8 +114,14 @@ function updateProgress() {
   progress.value = ((currentQuestionIndex) / questions.length) * 100;
 }
 
+
 async function onSubmit(evt) {
   evt.preventDefault();
+
+  // Gesamtpunktzahl berechnen
+  const totalScore = Object.values(categoryScores).reduce((sum, score) => sum + score, 0);
+  // Gesamtpunktzahl in localStorage speichern
+  localStorage.setItem('totalScore', totalScore);
 
   // Antworten im LocalStorage speichern
   localStorage.setItem('pollAnswers', JSON.stringify(answers));
@@ -129,7 +135,12 @@ async function onSubmit(evt) {
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ answers: answers.map(a => a.option_id) }),  // Nur die Option-IDs speichern
+      body: JSON.stringify({ 
+        answers: answers,
+        total_score: totalScore,
+        participantName: localStorage.getItem('participantName'),  // wichtig!
+        include_in_leaderboard: localStorage.getItem('leaderboardChoice') === 'yes'
+      }),  // Nur die Option-IDs speichern
   });
 
   if (response.ok) {
