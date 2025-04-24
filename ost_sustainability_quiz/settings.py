@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+#optional auf true
 APPEND_SLASH = False
 
 # Application definition

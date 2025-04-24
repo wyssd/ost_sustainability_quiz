@@ -114,12 +114,12 @@ function updateProgress() {
   progress.value = ((currentQuestionIndex) / questions.length) * 100;
 }
 
-
 async function onSubmit(evt) {
   evt.preventDefault();
 
   // Gesamtpunktzahl berechnen
   const totalScore = Object.values(categoryScores).reduce((sum, score) => sum + score, 0);
+
   // Gesamtpunktzahl in localStorage speichern
   localStorage.setItem('totalScore', totalScore);
 
@@ -138,7 +138,7 @@ async function onSubmit(evt) {
       body: JSON.stringify({ 
         answers: answers,
         total_score: totalScore,
-        participantName: localStorage.getItem('participantName'),  // wichtig!
+        participantName: localStorage.getItem('participantName'), 
         include_in_leaderboard: localStorage.getItem('leaderboardChoice') === 'yes'
       }),  // Nur die Option-IDs speichern
   });
