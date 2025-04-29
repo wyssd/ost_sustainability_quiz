@@ -11,4 +11,6 @@ urlpatterns = [
     path('api/save-answers/', views.save_answers, name="save_answers"),
     path('get_feedback/', views.get_feedback, name='get_feedback'),
     path('get-leaderboard/', views.get_leaderboard, name='get_leaderboard'),
+    path('leaderboard/', views.leaderboard, name="leaderboard"),
+    
 ]

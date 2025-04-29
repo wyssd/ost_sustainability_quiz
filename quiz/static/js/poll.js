@@ -14,12 +14,10 @@ async function initPoll() {
 
   // Initialisiere Kategorie-Punkte (setzen auf 0 für jede Kategorie)
   questions.forEach(q => {
-    q.options.forEach(opt => {
-      if (!categoryScores[opt.category]) {
-        categoryScores[opt.category] = 0; // Kategorie initialisieren
+      if (!categoryScores[q.category]) {
+        categoryScores[q.category] = 0; // Kategorie initialisieren
       }
     });
-  });
 
   if (!questions.length) {
     document.getElementById('question-block').textContent = "Keine Fragen verfügbar.";
@@ -59,13 +57,21 @@ function showQuestion(index) {
       answers[index] = {
         question_id: q.id,    // Frage-ID speichern
         option_id: opt.id,    // Option-ID speichern
-        category: opt.category, // Kategorie speichern
+        category: q.category, // Kategorie speichern
         score: opt.score,     // Punkte für die Option speichern
-        text: opt.text        // Option-Text für die Anzeige
+        text: opt.text,       // Option-Text für die Anzeige
+        extra: opt.extra || "",    // Lob für gewählte option
+        improvement: opt.improvement || ""          // Tip für gewählte option
       };
 
+      console.log("Aktuelle Frage:", q);
+
       // Punkte zur Kategorie hinzufügen
-      categoryScores[opt.category] += opt.score;
+      if (!categoryScores[q.category]) {
+        categoryScores[q.category] = 0;
+      }
+      
+      categoryScores[q.category] += opt.score;
 
       // Alle Buttons dieser Frage deaktivieren
       const allButtons = container.querySelectorAll('button[data-option-index]');
@@ -128,6 +134,10 @@ async function onSubmit(evt) {
 
   // Kategorie-Punkte im LocalStorage speichern
   localStorage.setItem('categoryScores', JSON.stringify(categoryScores));
+
+  console.log("totalScore saved:", localStorage.getItem('totalScore'));
+  console.log("categoryScores saved:", localStorage.getItem('categoryScores'));
+
 
   // Sende Antworten an den Server
   const response = await fetch('/api/save-answers/', {

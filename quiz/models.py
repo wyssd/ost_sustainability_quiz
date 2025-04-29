@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Question(models.Model):
     text = models.CharField(max_length=500)
+    category    = models.CharField(max_length=50)
 
     def __str__(self):
         return self.text
@@ -11,25 +12,12 @@ class Option(models.Model):
     question    = models.ForeignKey(Question, related_name='options', on_delete=models.CASCADE)
     text        = models.CharField(max_length=300)
     score       = models.IntegerField()
-    category    = models.CharField(max_length=50)
-    socialBonus = models.BooleanField(default=False)
+    extra = models.CharField(max_length=300, blank=True, null=True)
+    improvement = models.CharField(max_length=300, blank=True, null=True)
+
 
     def __str__(self):
         return f"{self.question.id} – {self.text[:30]}"
-    
-class Tip(models.Model):
-    category = models.CharField(max_length=100)
-    text = models.TextField()
-
-    def __str__(self):
-        return f"Tip for {self.category}: {self.text}"
-    
-class Praise(models.Model):
-    category = models.CharField(max_length=100)
-    text = models.TextField()
-
-    def __str__(self):
-        return f"Praise for {self.category}: {self.text}"
     
 class UserScore(models.Model):
     name = models.CharField(max_length=100)

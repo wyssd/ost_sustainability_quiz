@@ -41,6 +41,30 @@
         .alert-custom {
             font-size: 1.1rem;
         }
+
+        .earth-score {
+            position: relative;
+            display: inline-block;
+            font-size: 5rem;
+            /* make Earth bigger */
+            line-height: 1;
+            padding-bottom: 30px;
+        }
+
+        #total-score {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
     </style>
 </head>
 
@@ -53,38 +77,33 @@
                         <div class="mb-3">
                             <span style="font-size: 2.5rem;">🌿🎓</span>
                         </div>
-                        <h1 class="text-success mb-3">Dein Ergebnis</h1>
+                        <h1 class="text-success mb-3">your score</h1>
                     </div>
 
                     <div class="text-center">
-                        <p class="fs-4">Du hast in der Kategorie <strong id="best-category"></strong> besonders gut
-                            abgeschnitten. 👏</p>
-                        <div id="praise" class="alert alert-success">
-                            🌟 {{ praise }}
-                        </div>
-
-                        <p class="fs-4 mt-4">In der Kategorie <strong id="worst-category"></strong> hast du noch
-                            Verbesserungspotential. 💡</p>
-                        <div id="tip" class="alert alert-warning alert-custom">
-                            💬 {{ tip }}
-                        </div>
-
                         <!-- Gesamtpunktzahl anzeigen -->
-                        <p class="fs-3 mt-4">Gesamtpunktzahl: <strong id="total-score"></strong></p>
-                    </div>
+                        <span class="earth-score">
+                            🌍
+                            <span id="total-score"></span>
+                        </span>
+                        <p class="fs-4">
+                            You performed particularly well in the category <strong id="best-category"></strong> 👏</p>
+                        <h5 class="alert-heading">what you do well🌟</h5>
+                        <div id="extra" class="alert alert-success ">
+                            <!-- Platz für den Lobtext von JavaScript -->
+                        </div>
 
-                    <h3 class="mt-5 text-success text-center">🏆 Leaderboard</h3>
-                    <ul id="leaderboard" class="list-group mt-3">
-                        {% for user in leaderboard %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ user.name }}
-                            <span class="badge bg-success rounded-pill">{{ user.total_score }} Punkte</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                        <p class="fs-4 mt-4">You still have room for improvement in the category <strong
+                                id="worst-category"></strong> 💡</p>
+                        <h5 class="alert-heading">what you could improve🤔</h5>
+                        <div id="improvement" class="alert alert-warning alert-custom ">
+                            <!-- Platz für den Tipp von JavaScript -->
+                        </div>
+                    </div>
 
                     <div class="text-center mt-5">
                         <a href="{% url 'index' %}" class="btn btn-eco btn-lg">Zurück zur Startseite</a>
+                        <a href="{% url 'leaderboard' %}" class="btn btn-eco btn-lg">show leaderboard</a>
                     </div>
                 </div>
             </div>

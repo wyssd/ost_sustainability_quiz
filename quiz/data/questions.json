@@ -3,21 +3,24 @@
  "model": "quiz.question",
  "pk": 1,
  "fields": {
-  "text": "Wie kommst du normalerweise zur Hochschule?"
+  "text": "How do you usually get to campus?",
+  "category": "mobility"
  }
 },
 {
  "model": "quiz.question",
  "pk": 2,
  "fields": {
-  "text": "Wie nutzt du Lernmaterialien in deinem Studium?"
+  "text": "How do you use notes/cheat sheets in exams?",
+  "category": "Consumption: Non-Food"
  }
 },
 {
  "model": "quiz.question",
  "pk": 3,
  "fields": {
-  "text": "Wie ernährst du dich während des Studiums?"
+  "text": "How do you deal with paper consumption when studying?",
+  "category": "Consumption: Non-Food"
  }
 },
 {
@@ -25,10 +28,10 @@
  "pk": 1,
  "fields": {
   "question": 1,
-  "text": "Zu Fuß oder mit dem Fahrrad",
-  "score": 10,
-  "category": "transport",
-  "socialBonus": false
+  "text": "By bike, e-scooter or on foot",
+  "score": 100,
+  "extra": "Exercise in the fresh air strengthens body and mind, and clears the head before or after studying",
+  "improvement": null
  }
 },
 {
@@ -36,10 +39,10 @@
  "pk": 2,
  "fields": {
   "question": 1,
-  "text": "Mit öffentlichen Verkehrsmitteln",
-  "score": 7,
-  "category": "transport",
-  "socialBonus": false
+  "text": "By public transport (e.g. bus, train, tram)",
+  "score": 66,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -47,10 +50,10 @@
  "pk": 3,
  "fields": {
   "question": 1,
-  "text": "Mit dem Auto (allein)",
-  "score": 0,
-  "category": "transport",
-  "socialBonus": false
+  "text": "By car via car sharing or ride sharing",
+  "score": 33,
+  "extra": "Car sharing makes the journey to campus more social, entertaining and enlivens the spirit",
+  "improvement": null
  }
 },
 {
@@ -58,10 +61,10 @@
  "pk": 4,
  "fields": {
   "question": 1,
-  "text": "Mit dem Auto (Fahrgemeinschaft)",
-  "score": 7,
-  "category": "transport",
-  "socialBonus": true
+  "text": "With your own car or motorbike",
+  "score": 0,
+  "extra": null,
+  "improvement": "Switching to car sharing or public transport not only reduces the burden on the environment, but also gives you valuable time to read, study or unwind."
  }
 },
 {
@@ -69,10 +72,10 @@
  "pk": 5,
  "fields": {
   "question": 2,
-  "text": "Ich nutze fast ausschließlich digitale Materialien (Laptop/Tablet, PDFs, E-Books)",
-  "score": 10,
-  "category": "materials",
-  "socialBonus": false
+  "text": "Ich nutze keine Notizen/Spick",
+  "score": 100,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -80,10 +83,10 @@
  "pk": 6,
  "fields": {
   "question": 2,
-  "text": "Ich nutze fast ausschließlich digitale Materialien (Laptop/Tablet, PDFs, E-Books)",
-  "score": 7,
-  "category": "materials",
-  "socialBonus": false
+  "text": "I only use notes/cheat sheets that I need",
+  "score": 66,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -91,10 +94,10 @@
  "pk": 7,
  "fields": {
   "question": 2,
-  "text": "Ich drucke viele Unterlagen aus und arbeite hauptsächlich mit Papier",
-  "score": 0,
-  "category": "materials",
-  "socialBonus": false
+  "text": "I sometimes use more notes/cheat sheets than I need",
+  "score": 33,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -102,10 +105,10 @@
  "pk": 8,
  "fields": {
   "question": 2,
-  "text": "Ich nutze hauptsächlich Bücher aus der Bibliothek",
-  "score": 7,
-  "category": "materials",
-  "socialBonus": false
+  "text": "I always have everything I can take with me, even if I don't need it",
+  "score": 0,
+  "extra": null,
+  "improvement": "Zu viele Unterlagen können in der Prüfung schnell für Unübersichtlichkeit und Stress sorgen – besser ist es, sich auf das Wesentliche zu konzentrieren und gezielt nur das mitzunehmen, was wirklich hilft."
  }
 },
 {
@@ -113,10 +116,10 @@
  "pk": 9,
  "fields": {
   "question": 3,
-  "text": "Ich bringe mein eigenes Essen mit, möglichst nachhaltig",
-  "score": 10,
-  "category": "food",
-  "socialBonus": false
+  "text": "Ausschliesslich digital",
+  "score": 100,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -124,10 +127,10 @@
  "pk": 10,
  "fields": {
   "question": 3,
-  "text": "Ich esse in der Mensa und achte auf regionale/vegetarische Optionen",
-  "score": 7,
-  "category": "food",
-  "socialBonus": false
+  "text": "Mostly digital, sometimes paper",
+  "score": 66,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -135,10 +138,10 @@
  "pk": 11,
  "fields": {
   "question": 3,
-  "text": "Ich kaufe oft verpackte Snacks oder Fast Food",
-  "score": 0,
-  "category": "food",
-  "socialBonus": false
+  "text": "Very often paper",
+  "score": 33,
+  "extra": null,
+  "improvement": null
  }
 },
 {
@@ -146,10 +149,10 @@
  "pk": 12,
  "fields": {
   "question": 3,
-  "text": "Ich esse, was verfügbar ist, ohne auf Nachhaltigkeit zu achten",
-  "score": 3,
-  "category": "food",
-  "socialBonus": false
+  "text": "paper only",
+  "score": 0,
+  "extra": null,
+  "improvement": "Purely paper-based learning consumes many resources; digital alternatives protect the environment and facilitate a clear structure"
  }
 }
 ]

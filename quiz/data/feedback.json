@@ -1,146 +1,158 @@
 [
 {
-  "model": "quiz.tip",
-  "pk": 1,
-  "fields": {
-    "category": "transport",
-    "text": "Nutze das Fahrrad oder gehe zu Fuß – das ist nicht nur umweltfreundlich, sondern auch gesund! 🚶‍♂️🚴‍♀️"
-  }
+ "model": "quiz.question",
+ "pk": 1,
+ "fields": {
+  "text": "How do you usually get to campus?",
+  "category": "mobility"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 2,
-  "fields": {
-    "category": "transport",
-    "text": "Bilde Fahrgemeinschaften, um Emissionen zu reduzieren und Kosten zu sparen! 🚗"
-  }
+ "model": "quiz.question",
+ "pk": 2,
+ "fields": {
+  "text": "How do you use notes/cheat sheets in exams?",
+  "category": "Consumption: Non-Food"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 3,
-  "fields": {
-    "category": "transport",
-    "text": "Vermeide den Individualverkehr und setze auf öffentliche Verkehrsmittel. So trägst du zum Umweltschutz bei! 🚋"
-  }
+ "model": "quiz.question",
+ "pk": 3,
+ "fields": {
+  "text": "How do you deal with paper consumption when studying?",
+  "category": "Consumption: Non-Food"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 4,
-  "fields": {
-    "category": "materials",
-    "text": "Verwende PDF-Reader mit Notizfunktion statt auszudrucken. So sparst du Papier und tust der Umwelt etwas Gutes! 📚💻"
-  }
+ "model": "quiz.option",
+ "pk": 1,
+ "fields": {
+  "question": 1,
+  "text": "By bike, e-scooter or on foot",
+  "score": 100,
+  "extra": "Exercise in the fresh air strengthens body and mind, and clears the head before or after studying",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 5,
-  "fields": {
-    "category": "materials",
-    "text": "Scanne handschriftliche Notizen und speichere sie digital. Das hilft dir, Papier zu sparen und auf lange Sicht Ordnung zu halten. 📱"
-  }
+ "model": "quiz.option",
+ "pk": 2,
+ "fields": {
+  "question": 1,
+  "text": "By public transport (e.g. bus, train, tram)",
+  "score": 66,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 6,
-  "fields": {
-    "category": "materials",
-    "text": "Tausche Materialien online mit anderen Studierenden aus, um Abfall zu reduzieren und Kosten zu sparen! 💻"
-  }
+ "model": "quiz.option",
+ "pk": 3,
+ "fields": {
+  "question": 1,
+  "text": "By car via car sharing or ride sharing",
+  "score": 33,
+  "extra": "Car sharing makes the journey to campus more social, entertaining and enlivens the spirit",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 7,
-  "fields": {
-    "category": "food",
-    "text": "Bereite Mahlzeiten zu Hause vor – das ist günstiger und nachhaltiger als Fast Food. 🍴🥗"
-  }
+ "model": "quiz.option",
+ "pk": 4,
+ "fields": {
+  "question": 1,
+  "text": "With your own car or motorbike",
+  "score": 0,
+  "extra": "text",
+  "improvement": "Switching to car sharing or public transport not only reduces the burden on the environment, but also gives you valuable time to read, study or unwind."
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 8,
-  "fields": {
-    "category": "food",
-    "text": "Wähle vegetarische oder vegane Optionen in der Mensa – das reduziert deinen CO₂-Fußabdruck! 🌱"
-  }
+ "model": "quiz.option",
+ "pk": 5,
+ "fields": {
+  "question": 2,
+  "text": "Ich nutze keine Notizen/Spick",
+  "score": 100,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.tip",
-  "pk": 9,
-  "fields": {
-    "category": "food",
-    "text": "Vermeide Verpackungsmüll durch eigene Brotboxen oder Taschen für deinen Snack! 🍞🥒"
-  }
+ "model": "quiz.option",
+ "pk": 6,
+ "fields": {
+  "question": 2,
+  "text": "I only use notes/cheat sheets that I need",
+  "score": 66,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 1,
-  "fields": {
-    "category": "transport",
-    "text": "\"Nutze das Fahrrad oder gehe zu Fuß – das ist nicht nur umweltfreundlich, sondern auch gesund! 🚶‍♂️🚴‍♀️"
-  }
+ "model": "quiz.option",
+ "pk": 7,
+ "fields": {
+  "question": 2,
+  "text": "I sometimes use more notes/cheat sheets than I need",
+  "score": 33,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 2,
-  "fields": {
-    "category": "transport",
-    "text": "Toll, dass du Fahrgemeinschaften bildest – das spart CO₂ und fördert den Austausch zwischen Studierenden! 🚗"
-  }
+ "model": "quiz.option",
+ "pk": 8,
+ "fields": {
+  "question": 2,
+  "text": "I always have everything I can take with me, even if I don't need it",
+  "score": 0,
+  "extra": "text",
+  "improvement": "Zu den Hauptinhalten springenHilfe zur Barrierefreiheit Feedback zur Barrierefreiheit translate   Alle Bilder Videos Kurze Videos News Web Bücher Mehr Suchfilter Deutsch Englisch Zu viele Unterlagen können in der Prüfung schnell für Unübersichtlichkeit und Stress sorgen – besser ist es, sich auf das"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 3,
-  "fields": {
-    "category": "transport",
-    "text": "Fahrradfahren und öffentliche Verkehrsmittel nutzen – das ist wirklich vorbildlich in Sachen Nachhaltigkeit! 🚋"
-  }
+ "model": "quiz.option",
+ "pk": 9,
+ "fields": {
+  "question": 3,
+  "text": "Ausschliesslich digital",
+  "score": 100,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 4,
-  "fields": {
-    "category": "materials",
-    "text": "Klasse, dass du fast ausschließlich digitale Materialien nutzt – das ist nicht nur nachhaltig, sondern auch super praktisch! 💻📚"
-  }
+ "model": "quiz.option",
+ "pk": 10,
+ "fields": {
+  "question": 3,
+  "text": "Mostly digital, sometimes paper",
+  "score": 66,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 5,
-  "fields": {
-    "category": "materials",
-    "text": "Top, dass du deine Notizen digital speicherst – das spart nicht nur Papier, sondern hilft auch bei der Organisation! 📱"
-  }
+ "model": "quiz.option",
+ "pk": 11,
+ "fields": {
+  "question": 3,
+  "text": "Very often paper",
+  "score": 33,
+  "extra": "text",
+  "improvement": "text"
+ }
 },
 {
-  "model": "quiz.praise",
-  "pk": 6,
-  "fields": {
-    "category": "materials",
-    "text": "Super, dass du Materialien online tauschst – so schonst du Ressourcen und förderst den Austausch zwischen Studierenden! 💻"
-  }
-},
-{
-  "model": "quiz.praise",
-  "pk": 7,
-  "fields": {
-    "category": "food",
-    "text": "Top, dass du dein Essen selbst zubereitest – das ist nicht nur gesund, sondern auch nachhaltig! 🍴🥗"
-  }
-},
-{
-  "model": "quiz.praise",
-  "pk": 8,
-  "fields": {
-    "category": "food",
-    "text": "Super, dass du auf vegetarische oder vegane Optionen achtest – das ist ein wichtiger Schritt in Richtung Umweltschutz! 🌱"
-  }
-},
-{
-  "model": "quiz.praise",
-  "pk": 9,
-  "fields": {
-    "category": "food",
-    "text": "Toll, dass du Verpackungsmüll vermeidest – das hilft, die Umwelt zu schonen! 🍞🥒"
-  }
+ "model": "quiz.option",
+ "pk": 12,
+ "fields": {
+  "question": 3,
+  "text": "paper only",
+  "score": 0,
+  "extra": "text",
+  "improvement": "Ein rein papierbasiertes Lernen verbraucht viele Ressourcen, digitale Alternativen schonen die Umwelt und erleichtern eine übersichtliche Struktur"
+ }
 }
 ]

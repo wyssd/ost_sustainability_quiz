@@ -5,7 +5,7 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .models import Question, Tip, Praise, UserScore
+from .models import Question, UserScore
 import json
 
 
@@ -14,10 +14,6 @@ import json
 def index(request):
     template = loader.get_template('quiz/index.html')
     return HttpResponse(template.render({}, request))
-
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
-from .models import UserScore
 
 def poll(request):
     if request.method == 'GET':
@@ -51,6 +47,7 @@ def poll(request):
         leaderboard_choice = request.session.get('includeInLeaderboard', 'no')
         total_score = request.session.get('total_score', 0)
         poll_answers = request.session.get('pollAnswers')
+        user_id = request.POST.get('userId')
 
         print(f"[Nur anzeigen] Antworten: {poll_answers}, Gesamtpunktzahl: {total_score}")
 
@@ -70,12 +67,13 @@ def get_questions(request):
         questions_data = [
             {
                 'text': q.text,
+                'category': q.category,
                 'options': [
                     {
                         'text': opt.text,
                         'score': opt.score,
-                        'category': opt.category,
-                        'socialBonus': opt.socialBonus
+                        'extra': getattr(opt, 'extra', ''),
+                        'improvement': getattr(opt, 'improvement', ''),
                     } for opt in q.options.all()
                 ]
             } for q in Question.objects.prefetch_related('options')
@@ -86,11 +84,28 @@ def get_questions(request):
     return JsonResponse({'questions': questions_data})
 
 def results(request):
-    leaderboard = UserScore.objects.all().order_by('-total_score')  # Sortiere nach der Gesamtpunktzahl, absteigend
+    # Rangliste laden
+    leaderboard = UserScore.objects.all().order_by('-total_score')
+    
+    # Abrufen der Kategorie Scores (z.B. aus der Session oder der Datenbank)
+    category_scores = request.session.get('categoryScores', {})
+
+    # Um die beste und schlechteste Kategorie zu berechnen
+    sorted_categories = sorted(category_scores.items(), key=lambda x: x[1], reverse=True)
+    best_category = sorted_categories[0][0] if sorted_categories else None
+    worst_category = sorted_categories[-1][0] if sorted_categories else None
+    
+    # Falls beste und schlechteste Kategorie gleich sind (Gleichstand), wähle eine andere
+    if best_category == worst_category and len(sorted_categories) > 1:
+        worst_category = sorted_categories[-2][0]
+    
     context = {
-        'leaderboard': leaderboard
+        'leaderboard': leaderboard,
+        'best_category': best_category,
+        'worst_category': worst_category,
     }
-    return render(request, 'quiz/results.html', context) 
+    
+    return render(request, 'quiz/results.html', context)
 
 def get_results(request):
     if request.method != 'GET':
@@ -114,12 +129,12 @@ def get_results(request):
         
         tips_data = [
             {'category': tip.category, 'text': tip.text}
-            for tip in Tip.objects.all()
+            for tip in Question.objects.all()
         ]
         
         praise_data = [
             {'category': praise.category, 'text': praise.text}
-            for praise in Praise.objects.all()
+            for praise in Question.objects.all()
         ]
     except Exception as e:
         return JsonResponse({'error': 'Fehler beim Abrufen der Daten: ' + str(e)}, status=500)
@@ -162,26 +177,42 @@ def get_feedback(request):
         return JsonResponse({'error': 'Invalid request'}, status=400)
 
     data = json.loads(request.body)
-    best = data.get('bestCategory')
-    worst = data.get('worstCategory')
+    answers = data.get('answers')  # Should be an array of answers
 
-    praise = Praise.objects.filter(category=best).order_by('?').first()
-    tip = Tip.objects.filter(category=worst).order_by('?').first()
+    if not answers:
+        return JsonResponse({'error': 'Keine Antworten gefunden'}, status=400)
 
-    praise_text = praise.text if praise else f"Toll gemacht in der Kategorie {best}!"
-    tip_text = tip.text if tip else f"Schau dir doch mal Tipps für {worst} an!"
+    all_praises = []
+    all_tips = []
+
+    for answer in answers:
+        praise = answer.get('praise')
+        tip = answer.get('tip')
+
+        if praise:
+            all_praises.append(praise)
+        if tip:
+            all_tips.append(tip)
+
+    if not all_praises:
+        all_praises.append('🌟 Super, du hast dich gut geschlagen!')
+    if not all_tips:
+        all_tips.append('💬 Weiter so – du bist auf einem guten Weg!')
 
     return JsonResponse({
-        'praise': praise_text,
-        'tip': tip_text
+        'praise': all_praises,
+        'tip': all_tips
     })
+
 
 def get_leaderboard(request):
     leaderboard_data = UserScore.objects.all().order_by('-total_score')[:20]
     leaderboard = []
 
     for entry in leaderboard_data:
-        display_name = entry.name if entry.include_in_leaderboard else "Anonymer Teilnehmer"
+        if entry.include_in_leaderboard:
+            display_name = entry.name
+        
         leaderboard.append({
             "name": display_name,
             "total_score": entry.total_score
@@ -190,3 +221,12 @@ def get_leaderboard(request):
     return JsonResponse({"leaderboard": leaderboard})
 
 
+def leaderboard(request):
+    leaderboard_data = UserScore.objects.filter(include_in_leaderboard=True).order_by('-total_score')[:20]
+    current_user_pk = request.session.get('current_user_pk')
+    
+    context = {
+        'leaderboard': leaderboard_data,
+        'current_user': current_user_pk,
+    }
+    return render(request, 'quiz/leaderboard.html', context)
