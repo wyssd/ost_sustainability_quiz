@@ -16,6 +16,17 @@ def index(request):
     return HttpResponse(template.render({}, request))
 
 def poll(request):
+    participant_name = request.session.get('participantName', 'naughty user')
+    leaderboard_choice = request.session.get('includeInLeaderboard', 'no')
+    total_score = request.session.get('total_score', 0)
+    poll_answers = request.session.get('pollAnswers')
+
+    context = {
+        'participant_name': participant_name,
+        'show_on_leaderboard': leaderboard_choice == 'yes',
+        'total_score': total_score
+        }
+
     if request.method == 'GET':
         # Setze den Namen und Leaderboard-Wunsch aus GET-Parametern (z.B. aus Redirect)
         if 'participantName' not in request.session:
@@ -26,35 +37,12 @@ def poll(request):
             leaderboard_choice = request.GET.get('leaderboardChoice', 'no')
             request.session['includeInLeaderboard'] = leaderboard_choice
 
-        participant_name = request.session.get('participantName', 'naughty user')
-        leaderboard_choice = request.session.get('includeInLeaderboard', 'no')
-        total_score = request.session.get('total_score', 0)
-        poll_answers = request.session.get('pollAnswers')
-
-        context = {
-            'participant_name': participant_name,
-            'show_on_leaderboard': leaderboard_choice == 'yes',
-            'total_score': total_score
-        }
-
         return render(request, 'quiz/poll.html', context)
 
     elif request.method == 'POST':
-        # ⛔️ Keine Speicherung in der Datenbank mehr!
         # Nur Session-Werte lesen und Ergebnisse anzeigen
 
-        participant_name = request.session.get('participantName', 'naughty user')
-        leaderboard_choice = request.session.get('includeInLeaderboard', 'no')
-        total_score = request.session.get('total_score', 0)
-        poll_answers = request.session.get('pollAnswers')
-
         print(f"[Nur anzeigen] Antworten: {poll_answers}, Gesamtpunktzahl: {total_score}")
-
-        context = {
-            'participant_name': participant_name,
-            'show_on_leaderboard': leaderboard_choice == 'yes',
-            'total_score': total_score
-        }
 
         return render(request, 'quiz/poll.html', context)
 
@@ -62,23 +50,22 @@ def poll(request):
 
 
 def get_questions(request):
-    try:
-        questions_data = [
-            {
-                'text': q.text,
-                'category': q.category,
-                'options': [
-                    {
-                        'text': opt.text,
-                        'score': opt.score,
-                        'extra': getattr(opt, 'extra', ''),
-                        'improvement': getattr(opt, 'improvement', ''),
-                    } for opt in q.options.all()
-                ]
+    questions_data = [
+        {
+            'text': q.text,
+            'category': q.category,
+            'options': [
+                {
+                    'text': opt.text,
+                    'score': opt.score,
+                    'extra': getattr(opt, 'extra', ''),
+                    'improvement': getattr(opt, 'improvement', ''),
+                } for opt in q.options.all()
+            ]
             } for q in Question.objects.prefetch_related('options')
         ]
-    except Question.DoesNotExist:
-        return JsonResponse({'error': 'Fragen nicht gefunden'}, status=404)
+    if not questions_data:
+        return JsonResponse({'error': 'Keine Fragen gefunden'}, status=404)
 
     return JsonResponse({'questions': questions_data})
 
@@ -105,44 +92,6 @@ def results(request):
     }
     
     return render(request, 'quiz/results.html', context)
-
-def get_results(request):
-    if request.method != 'GET':
-        return JsonResponse({'error': 'Nur GET erlaubt'}, status=405)
-
-    try:
-        questions_data = [
-            {
-                'id': q.id,
-                'text': q.text,
-                'options': [
-                    {
-                        'text': opt.text,
-                        'score': opt.score,
-                        'category': opt.category,
-                        'socialBonus': opt.socialBonus
-                    } for opt in q.options.all()
-                ]
-            } for q in Question.objects.prefetch_related('options')
-        ]
-        
-        tips_data = [
-            {'category': tip.category, 'text': tip.text}
-            for tip in Question.objects.all()
-        ]
-        
-        praise_data = [
-            {'category': praise.category, 'text': praise.text}
-            for praise in Question.objects.all()
-        ]
-    except Exception as e:
-        return JsonResponse({'error': 'Fehler beim Abrufen der Daten: ' + str(e)}, status=500)
-
-    return JsonResponse({
-        'questions': questions_data,
-        'tips': tips_data,
-        'praises': praise_data,
-    })
 
 @csrf_exempt
 def save_answers(request):
@@ -172,58 +121,8 @@ def save_answers(request):
     
     return HttpResponseBadRequest("Nur POST-Requests erlaubt.")
 
-@csrf_exempt
-def get_feedback(request):
-    if request.method != "POST":
-        return JsonResponse({'error': 'Invalid request'}, status=400)
-
-    data = json.loads(request.body)
-    answers = data.get('answers')  # Should be an array of answers
-
-    if not answers:
-        return JsonResponse({'error': 'Keine Antworten gefunden'}, status=400)
-
-    all_praises = []
-    all_tips = []
-
-    for answer in answers:
-        praise = answer.get('praise')
-        tip = answer.get('tip')
-
-        if praise:
-            all_praises.append(praise)
-        if tip:
-            all_tips.append(tip)
-
-    if not all_praises:
-        all_praises.append('🌟 Super, du hast dich gut geschlagen!')
-    if not all_tips:
-        all_tips.append('💬 Weiter so – du bist auf einem guten Weg!')
-
-    return JsonResponse({
-        'praise': all_praises,
-        'tip': all_tips
-    })
-
-
-def get_leaderboard(request):
-    leaderboard_data = UserScore.objects.all().order_by('-total_score')[:20]
-    leaderboard = []
-
-    for entry in leaderboard_data:
-        if entry.include_in_leaderboard:
-            display_name = entry.name
-        
-        leaderboard.append({
-            "name": display_name,
-            "total_score": entry.total_score
-        })
-
-    return JsonResponse({"leaderboard": leaderboard})
-
-
 def leaderboard(request):
-    leaderboard_data = UserScore.objects.filter(include_in_leaderboard=True).order_by('-total_score')[:20]
+    leaderboard_data = UserScore.objects.filter(include_in_leaderboard=True).order_by('-total_score')
     current_user_pk = request.session.get('current_user_pk')
     
     context = {

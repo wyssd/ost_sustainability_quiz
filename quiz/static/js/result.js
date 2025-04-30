@@ -2,13 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const answers = JSON.parse(localStorage.getItem('pollAnswers'));
     const categoryScores = JSON.parse(localStorage.getItem('categoryScores'));
     const participantName = localStorage.getItem('participantName');
-    const leaderboardChoice = document.querySelector('input[name="leaderboard-choice"]:checked')?.value;
+    const leaderboardChoice = localStorage.getItem('leaderboardChoice');
     const totalScore = localStorage.getItem('totalScore');
 
     const allImprovements = answers.map(a => a.improvement).filter(Boolean);
     const allExtras = answers.map(a => a.extra).filter(Boolean);
-
-    // Beste und schlechteste Kategorie finden
 
     // Array mit allen Kategorien sortiert nach Score
     const sortedCategories = Object.entries(categoryScores).sort((a, b) => b[1] - a[1]);
@@ -21,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bestCategory === worstCategory && sortedCategories.length > 1) {
         worstCategory = sortedCategories[sortedCategories.length - 2][0];
     }
-
 
     // Daten ins HTML einfügen
     document.getElementById('total-score').textContent = totalScore;
@@ -38,8 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ? '<ul style="list-style-type: none; padding-left: 0;">' + allExtras.map(e => `<li> ${e}</li>`).join('') + '</ul>'
         : '🌟 Super, du hast dich gut geschlagen!';
 
-    console.log("Total Score:", totalScore);
-    console.log("Category Scores:", categoryScores);
+    if (window.DEBUG) {
+        console.log("Total Score:", totalScore);
+    }
     if (!totalScore || !categoryScores) {
         console.warn("Fehlende Daten! Wurde poll.js überhaupt aufgerufen?");
     }

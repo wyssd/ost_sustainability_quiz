@@ -1,8 +1,7 @@
 let questions = [];
-let improvementTips = {};
 let currentQuestionIndex = 0;
 const answers = [];
-const categoryScores = {}; // Dieses Objekt speichert die Punktzahlen pro Kategorie
+const categoryScores = {}; 
 
 document.addEventListener('DOMContentLoaded', initPoll);
 
@@ -10,7 +9,6 @@ async function initPoll() {
   const res = await fetch('/api/questions/');
   const data = await res.json();
   questions = data.questions || [];
-  improvementTips = data.tips || {};
 
   // Initialisiere Kategorie-Punkte (setzen auf 0 für jede Kategorie)
   questions.forEach(q => {
@@ -64,20 +62,12 @@ function showQuestion(index) {
         improvement: opt.improvement || ""          // Tip für gewählte option
       };
 
-      console.log("Aktuelle Frage:", q);
-
       // Punkte zur Kategorie hinzufügen
-      if (!categoryScores[q.category]) {
-        categoryScores[q.category] = 0;
-      }
-      
       categoryScores[q.category] += opt.score;
 
       // Alle Buttons dieser Frage deaktivieren
       const allButtons = container.querySelectorAll('button[data-option-index]');
       allButtons.forEach(b => b.classList.remove('active'));
-
-      // Diesen aktivieren
       btn.classList.add('active');
     });
 
@@ -96,7 +86,6 @@ function showQuestion(index) {
       alert("Bitte wähle eine Option aus.");
       return;
     }
-
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
@@ -123,16 +112,10 @@ function updateProgress() {
 async function onSubmit(evt) {
   evt.preventDefault();
 
-  // Gesamtpunktzahl berechnen
   const totalScore = Object.values(categoryScores).reduce((sum, score) => sum + score, 0);
 
-  // Gesamtpunktzahl in localStorage speichern
   localStorage.setItem('totalScore', totalScore);
-
-  // Antworten im LocalStorage speichern
   localStorage.setItem('pollAnswers', JSON.stringify(answers));
-
-  // Kategorie-Punkte im LocalStorage speichern
   localStorage.setItem('categoryScores', JSON.stringify(categoryScores));
 
   console.log("totalScore saved:", localStorage.getItem('totalScore'));
@@ -150,7 +133,7 @@ async function onSubmit(evt) {
         total_score: totalScore,
         participantName: localStorage.getItem('participantName'), 
         include_in_leaderboard: localStorage.getItem('leaderboardChoice') === 'yes'
-      }),  // Nur die Option-IDs speichern
+      }),  
   });
 
   if (response.ok) {
