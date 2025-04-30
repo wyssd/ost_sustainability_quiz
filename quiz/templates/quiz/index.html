@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +15,14 @@
             align-items: center;
             background-image: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
         }
+
         .welcome-container {
             background-color: white;
             border-radius: 20px;
             box-shadow: 0 0 25px rgba(46, 125, 50, 0.1);
             border-top: 4px solid #2e7d32;
         }
+
         .btn-eco {
             background-color: #388e3c;
             color: white;
@@ -27,16 +30,19 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
         }
+
         .btn-eco:hover {
             background-color: #2e7d32;
             transform: translateY(-2px);
         }
+
         .form-check-input:checked {
             background-color: #388e3c;
             border-color: #2e7d32;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
@@ -58,12 +64,8 @@
                             <label for="participantName" class="form-label text-success fw-bold">
                                 Your Name:
                             </label>
-                            <input type="text"
-                                   class="form-control form-control-lg"
-                                   id="participantName"
-                                   name="participantName"
-                                   required
-                                   placeholder="Max M.">
+                            <input type="text" class="form-control form-control-lg" id="participantName"
+                                name="participantName" required placeholder="Max M.">
                             <div class="form-text text-muted">This helps us personalize your experience</div>
                         </div>
 
@@ -72,29 +74,26 @@
                                 Include in leaderboard:
                             </label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input"
-                                       type="radio"
-                                       name="leaderboardChoice"
-                                       id="leaderboardYes"
-                                       value="yes"
-                                       required checked>
+                                <input class="form-check-input" type="radio" name="leaderboardChoice"
+                                    id="leaderboardYes" value="yes" required checked>
                                 <label class="form-check-label" for="leaderboardYes">Yes 🌟</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input"
-                                       type="radio"
-                                       name="leaderboardChoice"
-                                       id="leaderboardNo"
-                                       value="no">
+                                <input class="form-check-input" type="radio" name="leaderboardChoice" id="leaderboardNo"
+                                    value="no">
                                 <label class="form-check-label" for="leaderboardNo">No</label>
                             </div>
-                            <div class="form-text text-muted">Your name will be shown on the leaderboard page if selected</div>
+                            <div class="form-text text-muted">Your name will be shown on the leaderboard page if
+                                selected</div>
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
+                            <a href="{% url 'leaderboard' %}" class="btn btn-eco btn-lg">show leaderboard</a>
+
                             <button type="submit" class="btn btn-eco btn-lg">
                                 Begin Sustainability Poll 🌱
                             </button>
+
                         </div>
                     </form>
                 </div>
@@ -106,16 +105,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('form');
-        form.addEventListener('submit', (event) => {
-            // Store the name and leaderboard choice in localStorage when form is submitted
-            const participantName = document.getElementById('participantName').value;
-            const leaderboardChoice = document.querySelector('input[name="leaderboardChoice"]:checked').value;
-            
-            localStorage.setItem('participantName', participantName);
-            localStorage.setItem('leaderboardChoice', leaderboardChoice);
-        });
-    });</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (event) => {
+                // Store the name and leaderboard choice in localStorage when form is submitted
+                const participantName = document.getElementById('participantName').value;
+                const leaderboardChoice = document.querySelector('input[name="leaderboardChoice"]:checked').value;
+
+                localStorage.setItem('participantName', participantName);
+                localStorage.setItem('leaderboardChoice', leaderboardChoice);
+            });
+        });</script>
 </body>
+
 </html>

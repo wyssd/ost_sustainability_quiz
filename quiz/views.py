@@ -47,7 +47,6 @@ def poll(request):
         leaderboard_choice = request.session.get('includeInLeaderboard', 'no')
         total_score = request.session.get('total_score', 0)
         poll_answers = request.session.get('pollAnswers')
-        user_id = request.POST.get('userId')
 
         print(f"[Nur anzeigen] Antworten: {poll_answers}, Gesamtpunktzahl: {total_score}")
 
@@ -157,11 +156,13 @@ def save_answers(request):
 
             print(f"Name: {name}, Score: {score}, Leaderboard: {include_in_leaderboard}")
 
-            UserScore.objects.create(
+            saved_user = UserScore.objects.create(
                 name=name,
                 total_score=score,
                 include_in_leaderboard=include_in_leaderboard
             )
+            
+            request.session['current_user_pk'] = saved_user.pk
 
             return JsonResponse({'message': 'Erfolg'}, status=200)
 
@@ -227,6 +228,6 @@ def leaderboard(request):
     
     context = {
         'leaderboard': leaderboard_data,
-        'current_user': current_user_pk,
+        'current_user_pk': current_user_pk,
     }
     return render(request, 'quiz/leaderboard.html', context)
