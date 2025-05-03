@@ -50,10 +50,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? '<ul style="list-style-type: none; padding-left: 0;">' + allImprovements.map(i => `<li> ${i}</li>`).join('') + '</ul>'
                 : '💬 Keep it up – you are on the right track!';
 
-            document.getElementById('extra').innerHTML = allExtras.length
-                ? '<ul style="list-style-type: none; padding-left: 0;">' + allExtras.map(e => `<li> ${e}</li>`).join('') + '</ul>'
-                : '🌟 you did well!';
+                const extraEl = document.getElementById('extra');
 
+                if (allExtras.length) {
+                    extraEl.innerHTML = `<ul style="list-style-type: none; padding-left: 0;">
+                        ${allExtras.map(e => `<li>${e}</li>`).join('')}
+                    </ul>`;
+                } else {
+                    const ratio = maxScore && totalScore 
+                        ? parseFloat(totalScore) / parseFloat(maxScore) 
+                        : null;
+                
+                    const fallbackText = ratio === null ? 
+                        '🌟 Keep going – your results will appear here soon!' :
+                        ratio <= 0.25 ? '🌱 You should consider taking action, begin with small steps!' :
+                        ratio <= 0.5  ? '💪 You have made a start – there is potential!' :
+                        ratio <= 0.75 ? '👍 You are on a good path – keep it up!' :
+                                        '🌟 Great job – you are doing really well!';
+                
+                    extraEl.textContent = fallbackText;
+                }
+                
             // Danach: breakdown rendern
             createCategoryBreakdown(categoryMaxScores);
 
@@ -61,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Fehler beim Laden der Fragen:", err);
         });
 
-    // SVG anzeigen (bleibt wie bisher)
+    // images, score dots color, extra 
     const maxScore = localStorage.getItem('maxPossibleScore');
     if (maxScore && totalScore) {
         const scoreRatio = parseFloat(totalScore) / parseFloat(maxScore);
