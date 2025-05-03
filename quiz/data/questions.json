@@ -4,7 +4,7 @@
  "pk": 1,
  "fields": {
   "text": "How do you usually get to campus?",
-  "category": "mobility"
+  "category": "Mobility"
  }
 },
 {
@@ -24,13 +24,85 @@
  }
 },
 {
+ "model": "quiz.question",
+ "pk": 4,
+ "fields": {
+  "text": "What is your typical lunch during your studies?",
+  "category": "Consumption: Food & Drink"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 5,
+ "fields": {
+  "text": "How do you handle leftover food in everyday life?",
+  "category": "Consumption: Food & Drink"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 6,
+ "fields": {
+  "text": "How do you go about buying a laptop, tablet, or smartphone for your studies?",
+  "category": "Consumption: Non-Food"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 7,
+ "fields": {
+  "text": "How do you usually obtain the books you need for your study modules?",
+  "category": "Consumption: Non-Food"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 8,
+ "fields": {
+  "text": "How do you handle drinks on campus?",
+  "category": "Consumption: Food & Drink"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 9,
+ "fields": {
+  "text": "Where do you typically spend most of your time studying during exam periods?",
+  "category": "Miscellaneous"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 10,
+ "fields": {
+  "text": "How much does your budget influence sustainable decisions in daily life?",
+  "category": "Miscellaneous"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 11,
+ "fields": {
+  "text": "How would you assess your own behavior regarding sustainability in daily life?",
+  "category": "Miscellaneous"
+ }
+},
+{
+ "model": "quiz.question",
+ "pk": 12,
+ "fields": {
+  "text": "How do you rate your university’s efforts in sustainability (e.g. cafeteria offerings, building energy efficiency, curriculum, waste separation on campus)?",
+  "category": "Miscellaneous"
+ }
+},
+{
  "model": "quiz.option",
  "pk": 1,
  "fields": {
   "question": 1,
   "text": "By bike, e-scooter or on foot",
   "score": 100,
-  "extra": "Exercise in the fresh air strengthens body and mind, and clears the head before or after studying",
+  "extra": "Physical activity in fresh air boosts body and mind and clears your head before or after studying",
   "improvement": null
  }
 },
@@ -50,9 +122,9 @@
  "pk": 3,
  "fields": {
   "question": 1,
-  "text": "By car via car sharing or ride sharing",
+  "text": "By car sharing or ride-sharing",
   "score": 33,
-  "extra": "Car sharing makes the journey to campus more social, entertaining and enlivens the spirit",
+  "extra": "Car sharing makes your commute more social, entertaining, and mentally stimulating",
   "improvement": null
  }
 },
@@ -61,10 +133,10 @@
  "pk": 4,
  "fields": {
   "question": 1,
-  "text": "With your own car or motorbike",
+  "text": "By my own car or motorcycle",
   "score": 0,
   "extra": null,
-  "improvement": "Switching to car sharing or public transport not only reduces the burden on the environment, but also gives you valuable time to read, study or unwind."
+  "improvement": "Switching to public transport or car sharing benefits the environment and gives you valuable time to read, study, or relax"
  }
 },
 {
@@ -72,7 +144,7 @@
  "pk": 5,
  "fields": {
   "question": 2,
-  "text": "Ich nutze keine Notizen/Spick",
+  "text": "I don’t use notes/cheatsheets",
   "score": 100,
   "extra": null,
   "improvement": null
@@ -94,7 +166,7 @@
  "pk": 7,
  "fields": {
   "question": 2,
-  "text": "I sometimes use more notes/cheat sheets than I need",
+  "text": "I sometimes bring more than necessary",
   "score": 33,
   "extra": null,
   "improvement": null
@@ -105,10 +177,10 @@
  "pk": 8,
  "fields": {
   "question": 2,
-  "text": "I always have everything I can take with me, even if I don't need it",
+  "text": "I always bring everything I can, even if unnecessary",
   "score": 0,
   "extra": null,
-  "improvement": "Zu viele Unterlagen können in der Prüfung schnell für Unübersichtlichkeit und Stress sorgen – besser ist es, sich auf das Wesentliche zu konzentrieren und gezielt nur das mitzunehmen, was wirklich hilft."
+  "improvement": "Too many documents can cause confusion and stress during exams, it’s better to focus and bring only what truly helps"
  }
 },
 {
@@ -116,7 +188,7 @@
  "pk": 9,
  "fields": {
   "question": 3,
-  "text": "Ausschliesslich digital",
+  "text": "Exclusively digital",
   "score": 100,
   "extra": null,
   "improvement": null
@@ -152,7 +224,403 @@
   "text": "paper only",
   "score": 0,
   "extra": null,
-  "improvement": "Purely paper-based learning consumes many resources; digital alternatives protect the environment and facilitate a clear structure"
+  "improvement": "Learning solely with paper consumes many resources, digital alternatives protect the environment and help with a clearer structure"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 13,
+ "fields": {
+  "question": 4,
+  "text": "I bring homemade food in a reusable lunchbox (e.g. glass or sturdy plastic)",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 14,
+ "fields": {
+  "question": 4,
+  "text": "I bring pre-packaged or ready-made meals (e.g. from a supermarket)",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 15,
+ "fields": {
+  "question": 4,
+  "text": "I regularly eat at the cafeteria",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 16,
+ "fields": {
+  "question": 4,
+  "text": "I frequently order delivery (e.g. pizza, sushi, fast food)",
+  "score": 0,
+  "extra": null,
+  "improvement": "Regular food delivery creates a lot of packaging waste and is often more expensive, bringing your own meals saves resources and money"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 17,
+ "fields": {
+  "question": 5,
+  "text": "I plan my meals so there are hardly any leftovers and rarely throw anything away",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 18,
+ "fields": {
+  "question": 5,
+  "text": "I try to use leftovers creatively (e.g. reheat, freeze, repurpose)",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 19,
+ "fields": {
+  "question": 5,
+  "text": "Sometimes there are leftovers I can’t use",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 20,
+ "fields": {
+  "question": 5,
+  "text": "I often have too much and regularly throw food away",
+  "score": 0,
+  "extra": null,
+  "improvement": "Frequent food waste harms the environment and your budget, planning and reusing reduces waste and saves money"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 21,
+ "fields": {
+  "question": 6,
+  "text": "I always buy the latest tech; performance is most important",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 22,
+ "fields": {
+  "question": 6,
+  "text": "I try to use devices as long as possible",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 23,
+ "fields": {
+  "question": 6,
+  "text": "I buy used devices when possible",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 24,
+ "fields": {
+  "question": 6,
+  "text": "I use hand-me-downs from family/friends",
+  "score": 0,
+  "extra": null,
+  "improvement": "Always buying new tech is resource-intensive, older or second-hand devices are often sufficient and more sustainable"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 25,
+ "fields": {
+  "question": 7,
+  "text": "I borrow them from other students or friends",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 26,
+ "fields": {
+  "question": 7,
+  "text": "I use books from the (university) library",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 27,
+ "fields": {
+  "question": 7,
+  "text": "I buy used books (e.g. via platforms or notices)",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 28,
+ "fields": {
+  "question": 7,
+  "text": "I buy new books in stores or online",
+  "score": 0,
+  "extra": null,
+  "improvement": "Buying new books is expensive and resource-heavy, used or borrowed books are often just as effective and more eco-friendly"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 29,
+ "fields": {
+  "question": 8,
+  "text": "I use my own reusable bottle and refill it regularly (e.g. at water dispensers)",
+  "score": 100,
+  "extra": "Drinking plenty of water is important for a healthy life and successful learning",
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 30,
+ "fields": {
+  "question": 8,
+  "text": "I buy bottled drinks and reuse the bottles",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 31,
+ "fields": {
+  "question": 8,
+  "text": "I buy a new disposable bottle each time",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 32,
+ "fields": {
+  "question": 8,
+  "text": "I mainly consume drinks in disposable packaging like cans, to-go cups, or cartons",
+  "score": 0,
+  "extra": null,
+  "improvement": "Disposable packaging creates a lot of waste, a reusable bottle is more sustainable and saves money in the long run"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 33,
+ "fields": {
+  "question": 9,
+  "text": "Mainly on campus, e.g. in study rooms or open spaces",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 34,
+ "fields": {
+  "question": 9,
+  "text": "In the library or similar quiet public study places",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 35,
+ "fields": {
+  "question": 9,
+  "text": "With others – e.g. in study groups or at friends’ places",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 36,
+ "fields": {
+  "question": 9,
+  "text": "Alone at home, in my own study space",
+  "score": 0,
+  "extra": null,
+  "improvement": "Studying alone at home can be efficient, but group learning or using campus study spaces encourages exchange and can improve effectiveness"
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 37,
+ "fields": {
+  "question": 10,
+  "text": "I try to act sustainably even if it sometimes costs more",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 38,
+ "fields": {
+  "question": 10,
+  "text": "If it fits well or is reasonably priced, I choose sustainable options",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 39,
+ "fields": {
+  "question": 10,
+  "text": "I’d like to live more sustainably, but it’s often too expensive",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 40,
+ "fields": {
+  "question": 10,
+  "text": "I prioritize price; sustainability is secondary",
+  "score": 0,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 41,
+ "fields": {
+  "question": 11,
+  "text": "I consciously consider sustainability in many areas and strive to improve",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 42,
+ "fields": {
+  "question": 11,
+  "text": "I pay attention to some things but not consistently in all areas",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 43,
+ "fields": {
+  "question": 11,
+  "text": "Sustainability is important to me, but often hard to implement",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 44,
+ "fields": {
+  "question": 11,
+  "text": "I rarely think about it and act more unconsciously",
+  "score": 0,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 45,
+ "fields": {
+  "question": 12,
+  "text": "Very good",
+  "score": 100,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 46,
+ "fields": {
+  "question": 12,
+  "text": "Average",
+  "score": 66,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 47,
+ "fields": {
+  "question": 12,
+  "text": "Poor",
+  "score": 33,
+  "extra": null,
+  "improvement": null
+ }
+},
+{
+ "model": "quiz.option",
+ "pk": 48,
+ "fields": {
+  "question": 12,
+  "text": "No opinion",
+  "score": 0,
+  "extra": null,
+  "improvement": null
  }
 }
 ]

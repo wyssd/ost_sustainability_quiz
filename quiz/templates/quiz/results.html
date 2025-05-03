@@ -71,7 +71,7 @@
             display: block;
             margin: 0 auto;
         }
-        
+
         .btn-container {
             display: flex;
             justify-content: center;
@@ -80,13 +80,26 @@
             padding: 10px;
         }
 
+        .category-breakdown-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(46, 125, 50, 0.05);
+        }
+
+        .divider {
+            height: 2px;
+            background-color: #c8e6c9;
+            margin: 30px 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
+            <div class="col-md-10 col-lg-8">
                 <div class="result-container">
                     <div class="text-center mb-4">
                         <h1 class="text-success mb-3">your overall score:</h1>
@@ -106,17 +119,25 @@
                         <p class="fs-4">
                             You performed particularly well in the category <strong id="best-category"></strong>🌟</p>
                         <h5 class="alert-heading">what you do well👏:</h5>
-                        <div id="extra" class="alert alert-success ">
+                        <div id="extra" class="alert alert-success">
                             <!-- Platz für den Lobtext von JavaScript -->
                         </div>
 
                         <p class="fs-4 mt-4">You still have room for improvement in the category <strong
                                 id="worst-category"></strong></p>
                         <h5 class="alert-heading">what you could improve🤔:</h5>
-                        <div id="improvement" class="alert alert-warning alert-custom ">
+                        <div id="improvement" class="alert alert-warning alert-custom">
                             <!-- Platz für den Tipp von JavaScript -->
                         </div>
                     </div>
+
+                    <div class="divider"></div>
+
+                    <!-- Category Breakdown Section -->
+                    <div id="category-breakdown" class="category-breakdown-section text-center">
+                        <!-- This will be filled by JavaScript -->
+                    </div>
+
                     <div class="btn-container mt-5">
                         <a href="{% url 'index' %}" class="btn btn-eco btn-lg">go to start page</a>
                         <a href="{% url 'leaderboard' %}" class="btn btn-eco btn-lg">show leaderboard</a>
