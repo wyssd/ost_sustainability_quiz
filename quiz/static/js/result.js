@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const answers = JSON.parse(localStorage.getItem('pollAnswers'));
     const categoryScores = JSON.parse(localStorage.getItem('categoryScores'));
-    const participantName = localStorage.getItem('participantName');
-    const leaderboardChoice = localStorage.getItem('leaderboardChoice');
     const totalScore = localStorage.getItem('totalScore');
 
     const allImprovements = answers.map(a => a.improvement).filter(Boolean);
@@ -28,54 +26,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // Zeige die Verbesserungen (improvement) an
     document.getElementById('improvement').innerHTML = allImprovements.length
         ? '<ul style="list-style-type: none; padding-left: 0;">' + allImprovements.map(i => `<li> ${i}</li>`).join('') + '</ul>'
-        : '💬 Weiter so – du bist auf einem guten Weg!';
+        : '💬 Keep it up – you’re on the right track!';
 
     // Zeige die Extras (extra) an
     document.getElementById('extra').innerHTML = allExtras.length
         ? '<ul style="list-style-type: none; padding-left: 0;">' + allExtras.map(e => `<li> ${e}</li>`).join('') + '</ul>'
-        : '🌟 Super, du hast dich gut geschlagen!';
+        : '🌟 you did well!';
 
     if (window.DEBUG) {
         console.log("Total Score:", totalScore);
     }
     if (!totalScore || !categoryScores) {
-        console.warn("Fehlende Daten! Wurde poll.js überhaupt aufgerufen?");
+        console.warn("Fehlende Daten!");
     }
 
-    // Rangliste anzeigen
-    fetch('/get-leaderboard/')
-        .then(response => response.json())
-        .then(data => {
-            const leaderboard = data.leaderboard;
-            const leaderboardElement = document.getElementById('leaderboard');
-            leaderboardElement.innerHTML = ''; // Clear leaderboard
+    // SVG anzeige
+    const maxScore = localStorage.getItem('maxPossibleScore');
+    console.log("Max Score:", maxScore);
+    console.log("Total Score:", totalScore);
 
-            leaderboard.forEach((entry, index) => {
-                const li = document.createElement('li');
-                li.className = 'list-group-item d-flex justify-content-between align-items-center';
+    if (maxScore && totalScore) {
+        const scoreRatio = totalScore / maxScore;
+        console.log("Score Ratio:", scoreRatio);
+        let imagePath = '';
 
-                // Überprüfen, ob der Teilnehmer auf der Rangliste erscheinen möchte
-                if (entry.name === participantName && leaderboardChoice === 'yes') {
-                    li.style.fontWeight = 'bold';
-                    li.style.backgroundColor = '#e8f5e9';
-                }
+        if (scoreRatio <= 0.25) {
+            imagePath = '/static/img/Forest_04.svg';
+        } else if (scoreRatio <= 0.5) {
+            imagePath = '/static/img/Forest_03.svg';
+        } else if (scoreRatio <= 0.75) {
+            imagePath = '/static/img/Forest_02.svg';
+        } else {
+            imagePath = '/static/img/Forest_01.svg';
+        }
 
-                li.textContent = `${index + 1}. ${entry.name}`;
-                const span = document.createElement('span');
-                span.className = 'badge bg-success rounded-pill';
-                span.textContent = `${entry.total_score} Punkte`;
+        // Debug: Überprüfe den Bildpfad
+        console.log("Image Path:", imagePath);
 
-                li.appendChild(span);
-                leaderboardElement.appendChild(li);
-            });
-        })
-        .catch(error => {
-            console.error('Fehler beim Laden der Rangliste:', error);
-            const leaderboardElement = document.getElementById('leaderboard');
-            const errorLi = document.createElement('li');
-            errorLi.className = 'list-group-item text-danger';
-            errorLi.textContent = 'Fehler beim Laden der Rangliste';
-            leaderboardElement.appendChild(errorLi);
-        });
+        // Hole den Container, in den das Bild eingefügt werden soll
+        const imageContainer = document.getElementById('result-image');
+        imageContainer.innerHTML = ''; // Vorheriges Bild entfernen, falls vorhanden
+
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.alt = 'Score-Level Illustration';
+        img.className = 'score-image img-fluid';
+
+        imageContainer.appendChild(img);
+
+    }
 });
 

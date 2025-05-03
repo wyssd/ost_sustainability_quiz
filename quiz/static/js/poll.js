@@ -1,7 +1,7 @@
 let questions = [];
 let currentQuestionIndex = 0;
 const answers = [];
-const categoryScores = {}; 
+const categoryScores = {};
 
 document.addEventListener('DOMContentLoaded', initPoll);
 
@@ -12,10 +12,18 @@ async function initPoll() {
 
   // Initialisiere Kategorie-Punkte (setzen auf 0 für jede Kategorie)
   questions.forEach(q => {
-      if (!categoryScores[q.category]) {
-        categoryScores[q.category] = 0; // Kategorie initialisieren
-      }
-    });
+    if (!categoryScores[q.category]) {
+      categoryScores[q.category] = 0; // Kategorie initialisieren
+    }
+  });
+
+  let maxPossibleScore = 0;
+  questions.forEach(q => {
+    const maxScoreForQuestion = Math.max(...q.options.map(opt => opt.score));
+    maxPossibleScore += maxScoreForQuestion;
+  });
+  localStorage.setItem('maxPossibleScore', maxPossibleScore);
+  console.log("maxPossibleScore saved:", localStorage.getItem('maxPossibleScore'));
 
   if (!questions.length) {
     document.getElementById('question-block').textContent = "Keine Fragen verfügbar.";
@@ -79,11 +87,11 @@ function showQuestion(index) {
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
   nextBtn.className = 'btn btn-outline-primary mt-4';
-  nextBtn.textContent = index < questions.length - 1 ? 'Weiter ➡️' : 'Fertigstellen ✅';
+  nextBtn.textContent = index < questions.length - 1 ? 'continue ➡️' : 'finish ✅';
 
   nextBtn.addEventListener('click', () => {
     if (!answers[index]) {
-      alert("Bitte wähle eine Option aus.");
+      alert("Please select an option.");
       return;
     }
     currentQuestionIndex++;
@@ -94,7 +102,7 @@ function showQuestion(index) {
     } else {
       updateProgress();
       document.getElementById('question-block').innerHTML =
-        '<p class="text-success fw-bold text-center">Alle Fragen beantwortet ✅</p>';
+        '<p class="text-success fw-bold text-center">You answered all questions ✅</br> Thank you for participating!</p>';
       document.getElementById('submit-button').classList.remove('d-none');
     }
   });
@@ -124,21 +132,21 @@ async function onSubmit(evt) {
 
   // Sende Antworten an den Server
   const response = await fetch('/api/save-answers/', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        answers: answers,
-        total_score: totalScore,
-        participantName: localStorage.getItem('participantName'), 
-        include_in_leaderboard: localStorage.getItem('leaderboardChoice') === 'yes'
-      }),  
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      answers: answers,
+      total_score: totalScore,
+      participantName: localStorage.getItem('participantName'),
+      include_in_leaderboard: localStorage.getItem('leaderboardChoice') === 'yes'
+    }),
   });
 
   if (response.ok) {
-      window.location.href = '/results/';
+    window.location.href = '/results/';
   } else {
-      console.error('Fehler beim Speichern der Antworten');
+    console.error('Fehler beim Speichern der Antworten');
   }
 }

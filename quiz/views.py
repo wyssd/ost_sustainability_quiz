@@ -2,7 +2,6 @@ from urllib.error import HTTPError
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import loader
-from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Question, UserScore
