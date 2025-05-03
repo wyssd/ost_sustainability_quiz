@@ -47,16 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (maxScore && totalScore) {
         const scoreRatio = totalScore / maxScore;
+        const dotEl = document.getElementById('score-dot');
         console.log("Score Ratio:", scoreRatio);
         let imagePath = '';
 
         if (scoreRatio <= 0.25) {
+            dotEl.textContent = '🔴';
             imagePath = '/static/img/Forest_04.svg';
         } else if (scoreRatio <= 0.5) {
+            dotEl.textContent = '🟠';
             imagePath = '/static/img/Forest_03.svg';
         } else if (scoreRatio <= 0.75) {
+            dotEl.textContent = '🟡';
             imagePath = '/static/img/Forest_02.svg';
         } else {
+            dotEl.textContent = '🟢';
             imagePath = '/static/img/Forest_01.svg';
         }
 
