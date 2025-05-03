@@ -48,15 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show improvement / extra
             document.getElementById('improvement').innerHTML = allImprovements.length
                 ? '<ul style="list-style-type: none; padding-left: 0;">' + allImprovements.map(i => `<li> ${i}</li>`).join('') + '</ul>'
-                : '💬 Keep it up – you are on the right track!';
+                : '💬 Nothing, keep it up!';
 
                 const extraEl = document.getElementById('extra');
-
+                const extraTitle = document.getElementById('extra-title');
                 if (allExtras.length) {
+                    extraTitle.style.display = '';
                     extraEl.innerHTML = `<ul style="list-style-type: none; padding-left: 0;">
                         ${allExtras.map(e => `<li>${e}</li>`).join('')}
                     </ul>`;
                 } else {
+                    extraTitle.style.display = 'none';
                     const ratio = maxScore && totalScore 
                         ? parseFloat(totalScore) / parseFloat(maxScore) 
                         : null;
