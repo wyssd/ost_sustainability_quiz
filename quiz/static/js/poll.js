@@ -86,7 +86,7 @@ function showQuestion(index) {
 
   const nextBtn = document.createElement('button');
   nextBtn.type = 'button';
-  nextBtn.className = 'btn btn-outline-primary mt-4';
+  nextBtn.className = 'btn btn-eco btn-lg mt-4';
   nextBtn.textContent = index < questions.length - 1 ? 'continue ➡️' : 'finish ✅';
 
   nextBtn.addEventListener('click', () => {
