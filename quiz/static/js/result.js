@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryScores = JSON.parse(localStorage.getItem('categoryScores'));
     const totalScore = localStorage.getItem('totalScore');
 
+    
+
     const allImprovements = answers.map(a => a.improvement).filter(Boolean);
     const allExtras = answers.map(a => a.extra).filter(Boolean);
 
@@ -82,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // images, score dots color, extra 
     const maxScore = localStorage.getItem('maxPossibleScore');
+    document.getElementById('max-score').textContent = maxScore ?? "Nicht verfügbar";
     if (maxScore && totalScore) {
         const scoreRatio = parseFloat(totalScore) / parseFloat(maxScore);
         const dotEl = document.getElementById('score-dot');
